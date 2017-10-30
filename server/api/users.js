@@ -23,6 +23,8 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:userId', (req, res, next) => {
-  
-})
+  res.status(200).json(req.selectedUser);
+});
+
+
 
