@@ -25,7 +25,7 @@ const User = db.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
-  shippingAddres: {
+  shippingAddress: {
     type: Sequelize.STRING,
     allowNull: false,
   }
