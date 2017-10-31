@@ -7,7 +7,7 @@ router.param('reviewId', (req, res, next, reviewId) => {
   Review.findById(reviewId)
   .then(review => {
     req.selectedReview = review;
-    next();
+    next(); // Next is called here to move on to the appropriate route.
   })
   .catch(next)
 })
@@ -20,7 +20,11 @@ router.get('/', (req, res, next) => {
 })
 
 router.get('/:reviewId', (req, res, next) => {
-  res.status(200).json(req.selectedReview);
+  req.selectedReview.reload()
+  .then((review) => {
+    res.json(review).status(200);
+  })
+  .catch(next)
 });
 
 
@@ -35,29 +39,16 @@ router.post('/', (req, res, next) => {
 
 router.put('/:reviewId', (req, res, next) => {
   req.selectedReview.update(req.body)
-    .then(
-    res.status(201)
-    )
-    .done();
+    .then((updatedReview) => {
+      res.json(updatedReview);
+    })
+    .catch(next);
 })
 
 router.delete('/:reviewId', (req, res, next) => {
-  const reviewId = req.params.reviewId;
-
   req.selectedReview.destroy()
-  .then(() => {
-    res.status(204).send('deleted review').end();
-  })
-  
-  .catch(next)
-  
-  
-  findById(reviewId)
-  .then(review => {
-    return review.destroy()
-  })
-  .then(() => {
-    return res.status(204);
+  .then((review) => {
+    res.status(204).send(review);
   })
   .catch(next);
   })
