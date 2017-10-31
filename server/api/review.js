@@ -24,7 +24,7 @@ router.get('/:reviewId', (req, res, next) => {
 });
 
 
-router.post('/newReview', (req, res, next) => {
+router.post('/', (req, res, next) => {
   const review = req.body;
   Review.create(review)
     .then(review => {

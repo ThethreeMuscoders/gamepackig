@@ -3,7 +3,7 @@
 const {expect} = require('chai')
 const request = require('supertest')
 const db = require('../db')
-const app = require('./review')
+const app = require('./index')
 const Review = db.model('review')
 
 describe('Review routes', () => {
