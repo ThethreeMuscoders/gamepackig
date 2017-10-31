@@ -15,7 +15,7 @@ const sameBillingChance = 80;
 let users = [
   {
     email: 'zeke@zeke.zeke',
-    password: 123,
+    password: '123',
     isAdmin: true,
     shippingAddress: '123 Jump Street',
     billingAddress: '123 Jump Street',
