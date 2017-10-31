@@ -3,6 +3,8 @@ const { Product } = require('../db/models');
 
 module.exports = router;
 
+// router.param('productId', )
+
 router.get('/', (req, res, next) => {
   Product.findAll()
     .then(products => res.json(products))
@@ -17,12 +19,9 @@ router.get('/:productId', (req, res, next) => {
 
 router.post('/', (req, res, next) => {
   Product.findOrCreate({
-    where: {
-      name: req.body.name,
-      image: req.body.image,
-    },
+    where: req.body,
   })
-    .then(product => res.json(product))
+    .then(product => res.status(201).json(product))
     .catch(next);
 });
 
