@@ -30,13 +30,11 @@ PurchaseHistory.belongsTo(User);
 PurchaseHistory.belongsTo(Product);
 
 
-
-
 module.exports = {
   User,
   Cart,
   Category,
   Product,
   PurchaseHistory,
-  Review
-}
+  Review,
+};
