@@ -12,7 +12,22 @@ const chance = require('chance')(3);
 
 const amountOfUsers = 100;
 const sameBillingChance = 80;
-let users = [];
+let users = [
+  {
+    email: 'zeke@zeke.zeke',
+    password: 123,
+    isAdmin: true,
+    shippingAddress: '123 Jump Street',
+    billingAddress: '123 Jump Street',
+  },
+  {
+    email: 'bond@bond.bond',
+    password: 'bond',
+    isAdmin: false,
+    shippingAddress: '69 Bond Street',
+    billingAddress: '69 Bond Street',
+  },
+];
 
 const amountOfProducts = 200;
 const maxPrice = 500;
