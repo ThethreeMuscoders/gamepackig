@@ -16,6 +16,7 @@ describe('PurchaseHistory Routes', () => {
 
   describe('/api/history/', () => {
     const userObj = {
+      name: 'Damian',
       email: 'damian@gmail.com',
       password: '001',
       billingAddress: 'FSA',
