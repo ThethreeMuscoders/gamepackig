@@ -48,7 +48,7 @@ describe('Product Routes', () => {
         .get('/api/products/')
         .expect(200)
         .then(({ body }) => {
-          expect(body).to.be.an('array')
+          expect(body).to.be.an('array');
           expect(body[0].name).to.be.equal(productObj.name);
           expect(body[0].image).to.be.equal(productObj.image);
           expect(body[0].description).to.be.equal(productObj.description);
