@@ -11,14 +11,14 @@ describe('Cart Table', () => {
 
   describe('Cart model', () => {
 
-    xit('Should Have the correct schema definition', () => {
+    it('Should Have the correct schema definition', () => {
       expect(Cart.attributes.quantity).to.exist;
       expect(Cart.attributes.price).to.exist;
       expect(Cart.attributes.userId).to.exist;
       expect(Cart.attributes.productId).to.exist;
     });
 
-    xit('Should Have the following validations', () => {
+    it('Should Have the following validations', () => {
       const cart = Cart.build();
       return cart.validate()
         .then(() => {

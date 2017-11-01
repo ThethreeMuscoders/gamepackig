@@ -19,6 +19,7 @@ describe('User model', () => {
           password: 'bones',
           billingAddress: '123 S Nowhere',
           shippingAddress: '123 S Nowhere',
+          name: 'bones'
         })
           .then((user) => {
             cody = user;
@@ -26,11 +27,11 @@ describe('User model', () => {
           });
       });
 
-      xit('returns true if the password is correct', () => {
+      it('returns true if the password is correct', () => {
         expect(cody.correctPassword('bones')).to.be.equal(true)
       });
 
-      xit('returns false if the password is incorrect', () => {
+      it('returns false if the password is incorrect', () => {
         expect(cody.correctPassword('bonez')).to.be.equal(false)
       })
     }) // end describe('correctPassword')
@@ -38,7 +39,7 @@ describe('User model', () => {
 
   describe('User Model Schema', () => {
 
-    xit('Has email, password, salt, googleId, isAdmin, billingAddress, shippingAddress', () => {
+    it('Has email, password, salt, googleId, isAdmin, billingAddress, shippingAddress', () => {
       expect(User.attributes.email).to.exist;
       expect(User.attributes.password).to.exist;
       expect(User.attributes.salt).to.exist;
@@ -46,9 +47,10 @@ describe('User model', () => {
       expect(User.attributes.isAdmin).to.exist;
       expect(User.attributes.billingAddress).to.exist;
       expect(User.attributes.shippingAddress).to.exist;
+      expect(User.attributes.name).to.exist;
     });
 
-    xit('Has notNull validations for email, password, billingAddress, shippingAddress', () => {
+    it('Has notNull validations for email, password, billingAddress, shippingAddress', () => {
       const user = User.build();
       return user.validate()
         .then(() => {
@@ -59,20 +61,24 @@ describe('User model', () => {
           expect(err).to.be.an('error');
           expect(err.errors[0]).to.include({
             type: 'notNull Violation',
-            path: 'email',
+            path: 'name',
           });
           expect(err.errors[1]).to.include({
             type: 'notNull Violation',
-            path: 'password',
+            path: 'email',
           });
           expect(err.errors[2]).to.include({
             type: 'notNull Violation',
-            path: 'billingAddress',
+            path: 'password',
           });
           expect(err.errors[3]).to.include({
             type: 'notNull Violation',
-            path: 'shippingAddress',
+            path: 'billingAddress',
           });
+          expect(err.errors[4]).to.include({
+            type: 'notNull Violation',
+            path: 'shippingAddress',
+          })
         });
     });
   });// end desctribe('User Model Schema')

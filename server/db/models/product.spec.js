@@ -10,7 +10,7 @@ describe('Product Table', () => {
   afterEach('Syncronize and clear db', () => db.sync({ force: true }));
 
   describe('Product model', () => {
-    xit('Should Have the correct schema definition', () => {
+    it('Should Have the correct schema definition', () => {
       expect(Product.attributes.name).to.exist;
       expect(Product.attributes.image).to.exist;
       expect(Product.attributes.description).to.exist;
@@ -19,7 +19,7 @@ describe('Product Table', () => {
       expect(Product.attributes.categoryId).to.exist;
     });
 
-    xit('Should Have the following validations', () => {
+    it('Should Have the following validations', () => {
       const product = Product.build();
       return product.validate()
         .then(() => {
@@ -62,7 +62,7 @@ describe('Product Table', () => {
           .catch(console.error);
       });
 
-      xit('Should have a class method called addQuantity that increases the product quantity', () => {
+      it('Should have a class method called addQuantity that increases the product quantity', () => {
         expect(product.quantity).to.equal(10);
         product.addQuantity(5);
         expect(product.quantity).to.equal(15);
@@ -70,7 +70,7 @@ describe('Product Table', () => {
         expect(product.quantity).to.equal(20);
       });
 
-      xit('Should have a class method called removeQuantity that decreases the products quantity', () => {
+      it('Should have a class method called removeQuantity that decreases the products quantity', () => {
         expect(product.quantity).to.equal(10);
         product.removeQuantity(2);
         expect(product.quantity).to.equal(8);

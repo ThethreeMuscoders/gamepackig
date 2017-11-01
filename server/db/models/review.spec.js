@@ -10,12 +10,12 @@ describe('Review Table', () => {
   afterEach('Syncronize and clear db', () => db.sync({ force: true }));
 
   describe('Review model', () => {
-    xit('Should Have the correct schema definition', () => {
+    it('Should Have the correct schema definition', () => {
       expect(Review.attributes.description).to.exist;
       expect(Review.attributes.rating).to.exist;
     });
 
-    xit('Should Have the following validations', () => {
+    it('Should Have the following validations', () => {
       const review = Review.build();
       return review.validate()
         .then(() => {

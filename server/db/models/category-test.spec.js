@@ -10,11 +10,11 @@ describe('Category Table', () => {
   afterEach('Syncronize and clear db', () => db.sync({ force: true }));
 
   describe('Category model', () => {
-    xit('Should Have the correct schema definition', () => {
+    it('Should Have the correct schema definition', () => {
       expect(Category.attributes.category).to.exist;
     });
 
-    xit('Should Have the following validations', () => {
+    it('Should Have the following validations', () => {
       const category = Category.build();
       return category.validate()
         .then(() => {
