@@ -18,6 +18,7 @@ describe('User Routes', () => {
       password: '007',
       billingAddress: 'Bond street',
       shippingAddress: 'bond street',
+      name: 'bond',
     };
 
     let userId;
@@ -73,6 +74,7 @@ describe('User Routes', () => {
         password: '011',
         billingAddress: 'Damians Den',
         shippingAddress: 'Damians House',
+        name: 'bond',
       };
 
       return request(app)

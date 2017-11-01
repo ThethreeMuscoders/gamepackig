@@ -20,6 +20,7 @@ describe('Cart Routes', () => {
       password: '007',
       billingAddress: 'Bond street',
       shippingAddress: 'bond street',
+      name: 'bond',
     };
 
     const productObj = {

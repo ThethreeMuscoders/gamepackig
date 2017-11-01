@@ -3,19 +3,24 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const User = db.define('user', {
+  name: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   email: {
     type: Sequelize.STRING,
     unique: true,
-    allowNull: false
+    allowNull: false,
   },
   password: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    allowNull: false,
   },
   salt: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   googleId: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
   },
   isAdmin: {
     type: Sequelize.BOOLEAN,
@@ -28,10 +33,10 @@ const User = db.define('user', {
   shippingAddress: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
-})
+  },
+});
 
-module.exports = User
+module.exports = User;
 
 /**
  * instanceMethods
@@ -65,5 +70,5 @@ const setSaltAndPassword = user => {
   }
 }
 
-User.beforeCreate(setSaltAndPassword)
-User.beforeUpdate(setSaltAndPassword)
+User.beforeCreate(setSaltAndPassword);
+User.beforeUpdate(setSaltAndPassword);

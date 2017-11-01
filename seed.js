@@ -80,6 +80,7 @@ const selectProduct = () => {
 
 const createUsers = () => {
   for (let i = 0; i < amountOfUsers; i += 1) {
+    const name = chance.name();
     const email = chance.email();
     const password = chance.string({ length: 5 });
     const isAdmin = chance.bool({ likelihood: 10 });
@@ -89,6 +90,7 @@ const createUsers = () => {
       : chance.address();
 
     users.push({
+      name,
       email,
       password,
       isAdmin,
