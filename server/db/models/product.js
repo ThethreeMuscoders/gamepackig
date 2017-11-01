@@ -25,9 +25,16 @@ const Product = db.define('product', {
       min: 0,
     },
   },
+<<<<<<< HEAD
   category: {
     type: Sequelize.ARRAY(Sequelize.STRING),
   },
+=======
+  categoryId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  }
+>>>>>>> master
 })
 
 
