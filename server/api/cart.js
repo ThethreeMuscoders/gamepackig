@@ -21,9 +21,7 @@ router.get('/:userId', (req, res, next) => {
 
 // Creates single row in cart for one item
 router.post('/', (req, res, next) => {
-  Cart.create({
-    where: req.body,
-  })
+  Cart.create(req.body)
     .then(cart => res.status(201).json(cart))
     .catch(next);
 });
