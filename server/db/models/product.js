@@ -25,17 +25,20 @@ const Product = db.define('product', {
       min: 0,
     },
   },
-<<<<<<< HEAD
-  category: {
-    type: Sequelize.ARRAY(Sequelize.STRING),
-  },
-=======
   categoryId: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }
->>>>>>> master
-})
+  },
+});
 
+Product.prototype.addQuantity = function (num) {
+  let newQuantity = this.getDataValue('quantity') + num;
+  return this.setDataValue('quantity', newQuantity);
+};
+
+Product.prototype.removeQuantity = function (num) {
+  let newQuantity = this.getDataValue('quantity') - num;
+  return this.setDataValue('quantity', newQuantity);
+};
 
 module.exports = Product;

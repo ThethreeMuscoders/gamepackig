@@ -1,28 +1,31 @@
 import db from '../../db';
-import Category from './category';
+import Review from './review';
 import chai from 'chai';
 
 const { expect } = chai;
 
 
-describe('Category Table', () => {
+describe('Review Table', () => {
   beforeEach('Synchronise and clear db', () => db.sync({ force: true }));
   afterEach('Syncronize and clear db', () => db.sync({ force: true }));
 
-  describe('Category model', () => {
+  describe('Review model', () => {
     xit('Should Have the correct schema definition', () => {
-      expect(Category.attributes.category).to.exist;
+      expect(Review.attributes.description).to.exist;
+      expect(Review.attributes.rating).to.exist;
     });
 
     xit('Should Have the following validations', () => {
-      const category = Category.build();
-      return category.validate()
+      const review = Review.build();
+      return review.validate()
         .then(() => {
           throw new Error('Promise Should have rejected');
         })
         .catch((err) => {
-          expect(err.errors[0].path).to.be.equal('category');
-          expect(err.errors[0].type).to.be.equal('notNull Violation');
+          expect(err.errors[0]).to.include({
+            path: 'description',
+            type: 'notNull Violation',
+          });
         });
     });
   });
