@@ -3,10 +3,12 @@ const { User, Cart, PurchaseHistory } = require('../db/models');
 
 module.exports = router;
 
+const attributes = ['id', 'email', 'billingAddress', 'shippingAddress', 'isAdmin'];
+
 // Gets finds userby id
 router.param('id', (req, res, next, id) => {
   User.findById(id, {
-    attributes: ['id', 'email'],
+    attributes,
   })
     .then((user) => {
       req.selectedUser = user;
@@ -21,7 +23,7 @@ router.get('/', (req, res, next) => {
     // explicitly select only the id and email fields - even though
     // users' passwords are encrypted, it won't help if we just
     // send everything to anyone who asks!
-    attributes: ['id', 'email'],
+    attributes,
   })
     .then(users => res.json(users))
     .catch(next);
@@ -30,7 +32,7 @@ router.get('/', (req, res, next) => {
 // Get specific User
 router.get('/:id', (req, res, next) => {
   req.selectedUser.reload({
-    attributes: ['id', 'email', 'isAdmin'],
+    attributes,
     include: [Cart, PurchaseHistory],
   })
     .then((user) => {
@@ -52,7 +54,7 @@ router.put('/:id', (req, res, next) => {
 router.post('/', (req, res, next) => {
   User.create(req.body)
     .then((newUser) => {
-      res.json(newUser).status(200);
+      res.status(201).json(newUser);
     })
     .catch(next);
 });
@@ -61,7 +63,7 @@ router.post('/', (req, res, next) => {
 router.delete('/:id', (req, res, next) => {
   req.selectedUser.destroy()
     .then(() => {
-      res.send('User Deleted').status(200).end();
+      res.status(204).send('User Deleted').end();
     })
     .catch(next);
 });
