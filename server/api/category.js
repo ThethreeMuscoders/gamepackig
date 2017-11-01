@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { Category } = require('../db/models')
 module.exports = router
 
+//?? is using router.param a good habit?
 
 router.param('categoryId', (req, res, next, categoryId) => {
   Category.findById(categoryId)
@@ -19,6 +20,7 @@ router.get('/', (req, res, next) => {
     .catch(next)
 })
 
+//?? if we are using route.param, is it a good idea to use reload?
 router.get('/:categoryId', (req, res, next) => {
   req.selectedCategory.reload()
     .then((category) => {

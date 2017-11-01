@@ -34,6 +34,7 @@ router.put('/:historyId', (req, res, next) => {
     .catch(next);
 });
 
+// used strictly for admins
 router.delete('/:historyId', (req, res, next) => {
   PurchaseHistory.destroy({
     where: {

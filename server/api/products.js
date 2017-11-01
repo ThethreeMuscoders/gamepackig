@@ -17,6 +17,8 @@ router.get('/:productId', (req, res, next) => {
     .catch(next);
 });
 
+// ?? do we do findOrCreate or just Create? is it up to us? ex. accidental double click on submit
+
 router.post('/', (req, res, next) => {
   Product.findOrCreate({
     where: req.body,

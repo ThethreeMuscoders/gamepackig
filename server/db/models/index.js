@@ -42,3 +42,5 @@ module.exports = {
   PurchaseHistory,
   Review,
 };
+
+// ?? is our schema set up well?

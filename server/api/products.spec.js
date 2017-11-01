@@ -133,5 +133,7 @@ describe('Product Routes', () => {
             });
         });
     });
+    // ?? why does delete still pass (it throws an error)
+
   }); // end describe('/api/users')
 }); // end describe('User routes')
