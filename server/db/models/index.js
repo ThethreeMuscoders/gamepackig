@@ -29,9 +29,6 @@ Review.belongsTo(Product);
 PurchaseHistory.belongsTo(User);
 PurchaseHistory.belongsTo(Product);
 
-User.hasOne(Cart);
-User.hasOne(PurchaseHistory);
-
 
 module.exports = {
   User,
