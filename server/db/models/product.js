@@ -23,7 +23,7 @@ const Product = db.define('product', {
     defaultValue: 0,
     validate: {
       min: 0,
-    }
+    },
   },
   category: {
     type: Sequelize.ARRAY(Sequelize.STRING),
