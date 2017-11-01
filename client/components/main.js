@@ -32,10 +32,13 @@ const Main = (props) => {
         }
       </nav>
       <hr />
-      {children}
+      {children} 
     </div>
   )
 }
+
+// ?? How does children work?
+
 
 /**
  * CONTAINER

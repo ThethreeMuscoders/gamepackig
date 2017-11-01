@@ -58,6 +58,7 @@ const mapDispatch = (dispatch) => {
     handleSubmit (evt) {
       evt.preventDefault()
       const formName = evt.target.name
+
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
@@ -77,3 +78,4 @@ AuthForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   error: PropTypes.object
 }
+// ?? What are these propTypes? are they restrictions?
