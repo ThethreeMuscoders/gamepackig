@@ -24,6 +24,7 @@ describe('Review routes', () => {
 
     const userObj = {
       email: 'bonddavis@gmail.com',
+      name: 'Bond',
       password: '007',
       billingAddress: 'Bond street',
       shippingAddress: 'bond street',
