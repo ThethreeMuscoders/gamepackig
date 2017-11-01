@@ -6,8 +6,8 @@ const db = require('../db');
 const app = require('../index');
 
 const PurchaseHistory = db.model('purchaseHistory');
-const User = db.model('user');
 const Product = db.model('product');
+const User = db.model('user');
 
 describe('PurchaseHistory Routes', () => {
   beforeEach(() => {
