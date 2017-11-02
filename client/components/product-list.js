@@ -1,52 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Product from './product';
+
 /**
  * COMPONENT
  */
 export const ProductList = (props) => {
   const { products } = props;
-  const dir = 'grid';
+
   return (
     <div className="product-list-wrapper">
       <div className="product-list">
         {
-          dir === 'no'
-            ? <div>
-              <div className="product-item-grid">
-
-              </div>
-              <div className="product-item-grid">
-
-              </div>
-              <div className="product-item-grid">
-
-              </div>
-              <div className="product-item-grid">
-
-              </div>
-              <div className="product-item-grid">
-
-              </div>
-              <div className="product-item-grid">
-
-              </div>
-            </div>
-
-            : <div>
-              <div className="product-item">
-
-              </div>
-              <div className="product-item">
-
-              </div>
-              <div className="product-item">
-
-              </div>
-              <div className="product-item">
-
-                            </div>
-            </div>
+          products.map(product =>
+            <Product key={product.id} product={product} />)
         }
 
       </div>
