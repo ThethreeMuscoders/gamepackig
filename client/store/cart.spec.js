@@ -8,7 +8,7 @@ import { fetchSingleCart } from './cart';
 const middlewares = [thunkMiddleware];
 const mockStore = configureMockStore(middlewares);
 
-describe('Product Thunk Creators', () => {
+describe('Cart Thunk Creators', () => {
   let store;
   let mockAxios;
 

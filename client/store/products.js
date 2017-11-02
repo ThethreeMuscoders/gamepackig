@@ -47,7 +47,7 @@ export const fetchAllProducts = () => (dispatch) => {
 export const addProductToDatabase = product => (dispatch) => {
   return axios.post('/api/products/', product)
     .then((res) => {
-      dispatch(addProductToStore(res.data))
+      dispatch(addProductToStore(res.data));
     })
     .catch(err => console.log(err));
 };
@@ -59,7 +59,7 @@ export const updateProduct = (productId, body) => (dispatch) => {
 };
 
 export const deleteProduct = productId => (dispatch) => {
-  return axios.delete(`/api/products${productId}`)
+  return axios.delete(`/api/products/${productId}`)
     .then(res => dispatch(fetchAllProducts()))
     .catch(err => console.log(err));
 };

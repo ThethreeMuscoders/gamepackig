@@ -25,7 +25,7 @@ describe('Product Thunk Creators', () => {
     store.clearActions();
   });
 
-  xit('Thunk fetchAllUsers should get all users from the database and update the state', () => {
+  xit('Thunk fetchAllProducts should get all products from the database and update the state', () => {
     const fakeProducts = [
       { id: 1, name: 'GTX 950', description: 'nvidia card', price: 400.00, quantity: 40, categoryId: 2 },
       { id: 2, name: 'GTX 970', description: 'nvidia card', price: 450.00, quantity: 40, categoryId: 2 },
@@ -36,7 +36,6 @@ describe('Product Thunk Creators', () => {
 
     return store.dispatch(fetchAllProducts()).then(() => {
       const actions = store.getActions();
-
       expect(actions[0].type).to.equal('GET_ALL_PRODUCTS');
       expect(actions[0].products[1].id).to.equal(fakeProducts[1].id);
     });
@@ -49,7 +48,7 @@ describe('Product Thunk Creators', () => {
       quantity: 1,
     };
 
-    mockAxios.onPut(`/api/products/:productId`, { fakeUpdate }).reply(200, {
+    mockAxios.onPut('/api/products/1', fakeUpdate).reply(200, {
       id: 1,
       description: 'not so new card',
       name: 'GTX 100',
