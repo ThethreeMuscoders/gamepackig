@@ -11,11 +11,12 @@ import Navbar from './navbar';
  *  rendered out by the component's `children`.
  */
 const Main = (props) => {
-  const { handleClick, isLoggedIn } = props;
+  const { handleClick, isLoggedIn, children } = props;
 
   return (
     <div>
       <Navbar isLoggedin={isLoggedIn} />
+        {children}
     </div>
   );
 };
@@ -47,4 +48,5 @@ export default withRouter(connect(mapState, mapDispatch)(Main));
 Main.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  children: PropTypes.object,
 };
