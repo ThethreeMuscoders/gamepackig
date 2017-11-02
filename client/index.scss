@@ -1,5 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto|Press+Start+2P');
+
+$gp-red: rgb(255, 72, 72);
+$gp-blue: #363672;
+
 body {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
+  font-size: 10px;
+  margin: 0;
 
   a {
     text-decoration: none;
@@ -9,9 +16,90 @@ body {
     display: block;
   }
 
-  nav a {
-    display: inline-block;
-    margin: 1em;
+  .nav {
+    display: flex;
+    padding: 2em 10em;
+    background: $gp-blue;
+    color: $gp-red;
+    height: 5em;
+
+    a {
+      display: inline-block;
+      margin: 0.5em 0em;
+      padding: 0 1.5em;
+      font-size: 2em;
+      color: inherit;
+    }
+
+    a:hover {
+      color: white;
+      padding-bottom: 1.51em;
+      border-bottom: 0.25em solid white;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      flex-basis: 10%;
+
+      h1 {
+        font-family: 'Press Start 2P';
+        margin-left: 0.8em;
+        font-size: 2.5em;
+      }
+
+      img {
+        width: 4em;
+        height: 4em;
+        -ms-transform: rotate(-32deg); /* IE 9 */
+        -webkit-transform: rotate(-32deg); /* Chrome, Safari, Opera */
+        transform: rotate(-32deg);
+      }
+    }
+
+    nav {
+      display: flex;
+      flex-basis: 90%;
+      justify-content: flex-end;
+
+      .fa-shopping-cart {
+        margin-right: 0.5em;
+      }
+    }
+  }
+
+  .sub-nav {
+    display: flex;
+    padding: 1em 10em;
+    background: $gp-red;
+    color: $gp-blue;
+    height: 3em;
+
+    a:hover {
+      color: white;
+    }
+
+    .nav-cat {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-basis: 10%;
+      font-size: 2.5em;
+      margin: 0 2em;
+    }
+
+    .nav-search {
+      display:flex;
+      flex-basis: 90%;
+      justify-content: flex-end;
+
+      input {
+        width: 100%;
+        font-size: 2em;
+        border-radius: 5px;
+        outline: none;
+      }
+    }
   }
 
   form div {
