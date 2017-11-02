@@ -169,8 +169,13 @@ body {
 
       .description-wrapper {
         @include flex-center();
+        flex-direction: column;
         flex-basis: 50%;
         font-size: 1.5em;
+
+        span {
+          font-size: 2em;
+        }
       }
 
       .info-wrapper {
@@ -194,7 +199,6 @@ body {
 
           button {
             font-size: 1em;
-
             padding: 5px 10px;
             margin-bottom: 5px;
             color: white;
