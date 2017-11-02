@@ -11,9 +11,6 @@ function Product(props) {
 
       <div className="img-wrapper">
         <div>
-          <h4>{name}</h4>
-        </div>
-        <div>
           <NavLink to={`/products/${id}`}>
             <img alt={`${name} product`} src={image} />
           </NavLink>
@@ -21,6 +18,7 @@ function Product(props) {
       </div>
 
       <div className="description-wrapper">
+        <span>{name}</span>
         <p>{description}</p>
       </div>
 
