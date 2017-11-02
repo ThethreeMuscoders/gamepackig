@@ -50,4 +50,5 @@ export default withRouter(connect(mapState, mapDispatch)(Main));
 Main.propTypes = {
   handleClick: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired,
+  children: PropTypes.object,
 };
