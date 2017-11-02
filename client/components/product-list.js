@@ -6,12 +6,52 @@ import { connect } from 'react-redux';
  */
 export const ProductList = (props) => {
   const { products } = props;
-  console.log(products);
+  const dir = 'grid';
   return (
-    <div>
+    <div className="product-list-wrapper">
+      <div className="product-list">
+        {
+          dir === 'no'
+            ? <div>
+              <div className="product-item-grid">
 
+              </div>
+              <div className="product-item-grid">
+
+              </div>
+              <div className="product-item-grid">
+
+              </div>
+              <div className="product-item-grid">
+
+              </div>
+              <div className="product-item-grid">
+
+              </div>
+              <div className="product-item-grid">
+
+              </div>
+            </div>
+
+            : <div>
+              <div className="product-item">
+
+              </div>
+              <div className="product-item">
+
+              </div>
+              <div className="product-item">
+
+              </div>
+              <div className="product-item">
+
+                            </div>
+            </div>
+        }
+
+      </div>
     </div>
-  )
+  );
 }
 
 /**
