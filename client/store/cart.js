@@ -48,7 +48,7 @@ const reducerMethods = {
   GET_ALL_CARTS(state, action) {
     return action.carts;
   },
-  GET_SINGLE_CARTS(state, action) {
+  GET_SINGLE_CART(state, action) {
     return action.cart;
   },
   UPDATE_CART_ITEM(state, action) {
