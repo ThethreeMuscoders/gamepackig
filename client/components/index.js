@@ -6,5 +6,6 @@
 
 export {default as Main} from './main'
 export {default as UserHome} from './user-home'
+export { default as ProductSinglePage } from './productSinglePage';
 export { Login } from './Login';
 export { Signup } from './Signup';

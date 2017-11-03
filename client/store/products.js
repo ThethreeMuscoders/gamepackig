@@ -5,6 +5,7 @@ const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 const ADD_PRODUCT = 'ADD_PRODUCT';
 const DELETE_PRODUCT = 'DELETE_PRODUCT';
 
+
 // Action Creators
 export const getAllProducts = (products) => {
   return {

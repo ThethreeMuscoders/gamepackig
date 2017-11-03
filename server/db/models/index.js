@@ -33,6 +33,7 @@ PurchaseHistory.belongsTo(Product);
 User.hasMany(Cart);
 User.hasMany(PurchaseHistory);
 
+Product.hasMany(Review);
 
 module.exports = {
   User,
