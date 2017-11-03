@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { logout } from '../store';
+import { logout, filterProductsInStore } from '../store';
 
 export const Navbar = (props) => {
-  const { isLoggedIn, handleClick } = props;
+  const { products, isLoggedIn, handleClick, filterProducts } = props;
 
   return (
     <div>
@@ -38,7 +38,7 @@ export const Navbar = (props) => {
           <a>Categories</a>
         </div>
         <div className="nav-search">
-          <input type="text" placeholder="search" />
+          <input type="text" placeholder="search" onChange={e => filterProducts(products, e.target.value)} />
         </div>
       </div>
     </div>
@@ -51,6 +51,8 @@ export const Navbar = (props) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
+    products: state.products,
+    filteredProducts: state.filteredProducts,
   };
 };
 
@@ -59,17 +61,24 @@ const mapDispatch = (dispatch) => {
     handleClick() {
       dispatch(logout());
     },
+    filterProducts: function (products, input) {
+      const filtered = products.filter(product => {
+        return product.name.toUpperCase().match(input.toUpperCase());
+      });
+      const action = filterProductsInStore(filtered);
+      dispatch(action);
+    },
   };
 };
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
-export default connect(mapState, mapDispatch)(Navbar);
+  // The `withRouter` wrapper makes sure that updates are not blocked
+  // when the url changes
+  export default connect(mapState, mapDispatch)(Navbar);
 
-/**
- * PROP TYPES
- */
-Navbar.propTypes = {
-  handleClick: PropTypes.func.isRequired,
-  isLoggedIn: PropTypes.bool.isRequired,
-};
+  /**
+   * PROP TYPES
+   */
+  Navbar.propTypes = {
+    handleClick: PropTypes.func.isRequired,
+    isLoggedIn: PropTypes.bool.isRequired,
+  };
