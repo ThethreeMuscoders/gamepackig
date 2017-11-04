@@ -10,10 +10,16 @@ import { deleteCart, updateCart } from '../store';
 export const Cart = (props) => {
   const { cart, deleteItem, updateItem } = props;
   let subtotal = 0.00;
-  if (cart.length) cart.forEach((a) => { subtotal += a.price; });
-  let tax = subtotal * 0.1025;
-  let shipping = subtotal > 0 ? 8.95 : 0.00;
-  let total = subtotal + tax + shipping;
+  let items = 0;
+  if (cart.length) {
+    cart.forEach((a) => {
+      subtotal += a.price * a.quantity;
+      items += a.quantity;
+    });
+  }
+  const tax = subtotal * 0.1025;
+  const shipping = subtotal > 0 ? 8.95 * items : 0.00;
+  const total = subtotal + tax + shipping;
 
   return (
     <div className="cart-wrapper">
@@ -26,11 +32,11 @@ export const Cart = (props) => {
               <p>${item.price}</p>
               <p>Quantity:
               <input
-                name="quantity"
-                type="number"
-                defaultValue={item.quantity}
-                onChange={e => updateItem(e, item.id, item)}
-              />
+                  name="quantity"
+                  type="number"
+                  defaultValue={item.quantity}
+                  onChange={e => updateItem(e, item.id, item)}
+                />
               </p>
               <button onClick={e => deleteItem(item.id)}>Remove Item</button>
             </div>
