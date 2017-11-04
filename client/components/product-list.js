@@ -28,6 +28,7 @@ export const ProductList = (props) => {
 const mapState = (state) => {
   return {
     products: state.filteredProducts,
+    cart: state.cart,
   };
 };
 

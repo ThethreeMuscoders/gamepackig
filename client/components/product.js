@@ -1,9 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { addCartItemToDatabase } from '../store';
 
 function Product(props) {
-  const { id, name, image, description, price } = props.product;
+  const { user, cart, product, addItem } = props;
+  const { id, name, image, description, price } = product;
 
   return (
     <div className='product-item'>
@@ -27,15 +29,33 @@ function Product(props) {
         </div>
         <div className="btns">
           <NavLink to={`/products/${id}`}>View Item</NavLink>
-          <button>Add to Cart</button>
+          <button onClick={() => addItem(user, product)}>Add to Cart</button>
         </div>
       </div>
     </div>
   );
 }
 
-const mapStateToProps = null;
+const mapState = (state) => {
+  return {
+    cart: state.cart,
+    user: state.user,
+  };
+};
 
-const mapDispatchToProps = null;
+const mapDispatch = (dispatch) => {
+  return {
+    addItem(user, { price, id }) {
+      let item = {
+        price,
+        quantity: 1,
+        productId: id,
+        userId: user.id,
+      };
+      const action = addCartItemToDatabase(item);
+      dispatch(action);
+    },
+  };
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(mapState, mapDispatch)(Product);

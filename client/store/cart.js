@@ -60,7 +60,7 @@ const reducerMethods = {
     return [...state, action.cart];
   },
   DELETE_CART_ITEM(state, action) {
-    return state.filter(cart => cart.id !== action.cart.id);
+    return state.filter(cart => cart.id !== action.cartId);
   },
 };
 
@@ -86,22 +86,31 @@ export const fetchSingleCart = userId => (dispatch) => {
     .catch(err => console.log(err));
 };
 
-export const addCartItemToDatabase = cartItem => (dispatch) => {
-  return axios.post('/api/carts/', cartItem)
-    .then((res) => {
-      dispatch(addCartToStore(res.data))
-    })
-    .catch(err => console.log(err));
-};
 
 export const updateCart = (cartId, body) => (dispatch) => {
   return axios.put(`/api/carts/${cartId}`, body)
-    .then(res => dispatch(updateCart(res)))
+    .then(res => dispatch(updateCartInStore(res)))
+    .catch(err => console.log(err));
+};
+
+export const addCartItemToDatabase = cartItem => (dispatch) => {
+
+  return axios.get(`/api/carts/${cartItem.userId}/${cartItem.productId}`)
+    .then((res) => {
+      if (res.data) {
+        res.data.quantity += cartItem.quantity;
+        return axios.put(`/api/carts/${res.data.id}`, res.data)
+          .then(res2 => dispatch(updateCartInStore(res2)))
+          .catch(err => console.log(err));
+      }
+      return axios.post('/api/carts/', cartItem)
+        .then(postRes => dispatch(addCartToStore(postRes.data)));
+    })
     .catch(err => console.log(err));
 };
 
 export const deleteCart = cartId => (dispatch) => {
   return axios.delete(`/api/carts/${cartId}`)
-    .then(() => dispatch(deleteCart(cartId)))
+    .then(() => dispatch(deleteCartFromStore(cartId)))
     .catch(err => console.log(err));
 };

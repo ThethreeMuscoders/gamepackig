@@ -10,3 +10,4 @@ export { Signup } from './Signup';
 export { default as Navbar } from './navbar';
 export { default as ProductList } from './product-list';
 export { default as FilterSidebar } from './filterSidebar';
+export { default as Cart } from './cart';
