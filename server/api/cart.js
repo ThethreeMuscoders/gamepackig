@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Cart } = require('../db/models');
+const { Cart, Product } = require('../db/models');
 
 module.exports = router;
 
@@ -14,8 +14,25 @@ router.get('/:userId', (req, res, next) => {
     where: {
       userId: req.params.userId,
     },
+    include: [
+      { model: Product, as: 'product' },
+    ],
   })
     .then(carts => res.json(carts))
+    .catch(next);
+});
+
+router.get('/:userId/:productId', (req, res, next) => {
+  Cart.findOne({
+    where: {
+      userId: req.params.userId,
+      productId: req.params.productId,
+    },
+    include: [
+      { model: Product, as: 'product' },
+    ],
+  })
+    .then(cart => res.json(cart))
     .catch(next);
 });
 
@@ -27,6 +44,7 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:cartId', (req, res, next) => {
+  console.log(req.params.cartId, 'API')
   Cart.findById(req.params.cartId)
     .then(cart => cart.update(req.body))
     .then(cart => res.send(cart))

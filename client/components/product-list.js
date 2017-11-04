@@ -28,6 +28,7 @@ export const ProductList = (props) => {
 const mapState = (state) => {
   return {
     products: state.products,
+    cart: state.cart,
   };
 };
 
