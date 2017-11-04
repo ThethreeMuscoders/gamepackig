@@ -31,10 +31,10 @@ export class ProductSinglePage extends React.Component {
             <img src={product.image} alt={` image of ${product.name}`} />
             <form>
               <input type='number' name='quantity' min='1' max='10' />
-              <button type='submit'> Add to cart </button>
+              <button type='submit'> <i className='fa fa-cart-plus'/> Add to cart </button>
             </form>
           </div>
-          <div>
+          <div id='productDescription'>
             <h3>Description</h3>
             <p>{product.description}</p>
           </div>
@@ -42,12 +42,12 @@ export class ProductSinglePage extends React.Component {
         <hr />
         <div>
           <h3>Reviews</h3>
-            <ul>
+            <ul className='reviewListContainer'>
               {
                 reviews && reviews.map((review) => {
                   return (
-                    <div>
-                      <ReviewItem />
+                    <div key={review.id}>
+                      <ReviewItem review={review}/>
                     </div>
                   );
                 }) 
