@@ -11,6 +11,7 @@ const sessionStore = new SequelizeStore({ db })
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const { isAdmin } = require('./middleware/auth');
 module.exports = app
 
 /**
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-  db.models.user.findById(id)
+  db.models.user.findById(id, { attributes: ['id', 'email', 'isAdmin'] })
     .then(user => done(null, user))
     .catch(done))
 
@@ -52,6 +53,7 @@ const createApp = () => {
   app.use(passport.session())
 
   // auth and api routes
+  
   app.use('/auth', require('./auth'))
   app.use('/api', require('./api'))
 
