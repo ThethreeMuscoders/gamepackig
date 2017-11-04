@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { filterProductsInStore } from './';
 
 // Actions
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
@@ -19,7 +20,8 @@ export const addProductToStore = (product) => {
     type: ADD_PRODUCT,
     product,
   };
-}
+};
+
 
 // Reducer
 const reducerMethods = {
@@ -40,6 +42,7 @@ export default function (state = [], action) {
 export const fetchAllProducts = () => (dispatch) => {
   return axios.get('/api/products/')
     .then((res) => {
+      dispatch(filterProductsInStore(res.data))
       return dispatch(getAllProducts(res.data));
     })
     .catch(err => console.log(err));
@@ -63,4 +66,15 @@ export const deleteProduct = productId => (dispatch) => {
   return axios.delete(`/api/products/${productId}`)
     .then(res => dispatch(fetchAllProducts()))
     .catch(err => console.log(err));
+};
+
+export const filterProducts = (filterFunc, state) => (dispatch) => {
+  return state
+    ? dispatch(getAllProducts(state.filter(filterFunc)))
+    : axios.get('/api/products/')
+      .then((res) => {
+        const filteredProducts = res.filter(filterFunc);
+        return dispatch(getAllProducts(filteredProducts));
+      })
+      .catch(err => console.log(err));
 };

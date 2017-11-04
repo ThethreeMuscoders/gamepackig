@@ -9,6 +9,10 @@ const attributes = ['id', 'email', 'billingAddress', 'shippingAddress', 'isAdmin
 router.param('id', (req, res, next, id) => {
   User.findById(id, {
     attributes,
+    include: [
+      { model: Cart, as: 'product' },
+      { model: PurchaseHistory, as: 'purchases' },
+    ],
   })
     .then((user) => {
       req.selectedUser = user;

@@ -1,12 +1,11 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Router} from 'react-router'
-import {Route, Switch} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import history from './history'
-import {Main, Login, Signup, UserHome, ProductSinglePage } from './components'
-// import {Login, Signup} from './components';
-import { me, fetchAllProducts } from './store'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Router } from 'react-router';
+import { Route, Switch } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import history from './history';
+import { Main, Login, Signup, UserHome, ProductList, FilterSidebar, Cart, ProductSinglePage  } from './components';
+import { me, fetchAllProducts } from './store';
 
 /**
  * COMPONENT
@@ -17,7 +16,7 @@ class Routes extends Component {
   }
 
   render () {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn} = this.props;
 
     return (
       <Router history={history}>
@@ -35,8 +34,11 @@ class Routes extends Component {
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
-            <Route component={Login} />
+            <Route path="/login" component={Login} />
           </Switch>
+          <Route path="/products" component={FilterSidebar} />
+          <Route path="/products" component={ProductList} />
+          <Route path="/cart" component={Cart} />
         </Main>
       </Router>
     )
@@ -56,12 +58,21 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
+<<<<<<< HEAD
     loadInitialData () {
       dispatch(me())
       dispatch(fetchAllProducts())
     }
   }
 }
+=======
+    loadInitialData(userId) {
+      dispatch(me());
+      dispatch(fetchAllProducts());
+    },
+  };
+};
+>>>>>>> master
 
 export default connect(mapState, mapDispatch)(Routes)
 
@@ -71,4 +82,4 @@ export default connect(mapState, mapDispatch)(Routes)
 Routes.propTypes = {
   loadInitialData: PropTypes.func.isRequired,
   isLoggedIn: PropTypes.bool.isRequired
-}
+};
