@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 /**
  * COMPONENT
  */
-export const UserHome = (props) => {
+export const ProfilePage = (props) => {
   const { email } = props
 
   return (
@@ -13,7 +13,7 @@ export const UserHome = (props) => {
       
 
       <div className="user-editInfo-wrapper">
-      <h3>Welcome, {email}</h3>
+      <h3>Profile Page for, {email}</h3>
         <form className="form-horizontalTest">
           <fieldset>
             <legend>Update Account</legend>
@@ -65,11 +65,11 @@ const mapState = (state) => {
   }
 }
 
-export default connect(mapState)(UserHome)
+export default connect(mapState)(ProfilePage)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+ProfilePage.propTypes = {
   email: PropTypes.string
 }

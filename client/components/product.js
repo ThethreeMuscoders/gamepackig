@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 function Product(props) {
-  const { product } = props;
-  const { id, name, image, description, price } = product;
+  const { id, name, image, description, price } = props.product;
 
   return (
     <div className='product-item'>

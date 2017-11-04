@@ -2,6 +2,11 @@
 
 $gp-red: rgb(255, 72, 72);
 $gp-blue: #363672;
+@mixin box-shadow($a, $b, $c, $d, $color) {
+  -webkit-box-shadow: $a $b $c $d $color;
+     -moz-box-shadow: $a $b $c $d $color;
+      box-shadow: $a $b $c $d $color;
+}
 
 @mixin box-shadow($a, $b, $c, $d, $color) {
   -webkit-box-shadow: $a $b $c $d $color;
@@ -34,7 +39,6 @@ body {
     background: $gp-blue;
     color: $gp-red;
     height: 5em;
-
     
     a {
       display: inline-block;
@@ -43,8 +47,7 @@ body {
       font-size: 2em;
       color: inherit;
     }
-
-    
+ 
 
     .logo {
       display: flex;
@@ -54,7 +57,7 @@ body {
       h1 {
         font-family: 'Press Start 2P';
         margin-left: 0.8em;
-        font-size: 1em;
+        font-size: 2.5em;
         color: $gp-red;
       }
 
@@ -75,6 +78,7 @@ body {
       .fa-shopping-cart {
         margin-right: 0.5em;
       }
+
       a {
         display: inline-block;
         margin: 0.5em 0em;
@@ -129,15 +133,41 @@ body {
     margin: 1em;
     display: inline-block;
   }
-
   .hero {
     display: flex;
+
+    .product-list-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      flex-basis: 75%;
+      margin: 1em;
+      height: calc(100vh - 16em);
+      @include box-shadow(0px, 0px, 1px, 0px, #bbb);
+    }
+
+    .user-editInfo-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      flex-basis: 75%;
+      margin: 1em;
+      height: calc(100vh - 16em);
+      @include box-shadow(0px, 0px, 1px, 0px, #bbb);
+    }
+    .tempSidebar-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      flex-basis: 25%;
+      margin: 1em;
+      height: calc(100vh - 16em);
+      @include box-shadow(0px, 0px, 1px, 0px, #bbb);
+    }
 
     .homePage-wrapper {
       margin: 5em 20em;
       width: 100%;
       
     .homePage-carousel-wrapper {
+
       height: 30em;
       width: 100%;
       @include box-shadow(0px, 0px, 1px, 0px, #bbb);
@@ -155,13 +185,8 @@ body {
       @include box-shadow(0px, 0px, 1px, 0px, #bbb);
     }
   }
-    .product-list-wrapper {
-      display: flex;
-      justify-content: flex-end;
-      flex-basis: 75%;
-      margin: 1em;
-      height: calc(100vh - 16em);
-      @include box-shadow(0px, 0px, 1px, 0px, #bbb);
+    
+
 
       .product-list {
         margin: 1em;
@@ -178,7 +203,7 @@ body {
         height: 25em;
         @include box-shadow(0px, 0px, 1px, 0px, #777);
       }
-      
+
       .grid {
         display: inline-block;
         width: calc((100% - 8em) / 4);
@@ -202,13 +227,8 @@ body {
 
       .description-wrapper {
         @include flex-center();
-        flex-direction: column;
         flex-basis: 50%;
         font-size: 1.5em;
-
-        span {
-          font-size: 2em;
-        }
       }
 
       .info-wrapper {
@@ -232,6 +252,7 @@ body {
 
           button {
             font-size: 1em;
+
             padding: 5px 10px;
             margin-bottom: 5px;
             color: white;
@@ -240,7 +261,7 @@ body {
           }
         }
       }
-    }
+    
 
     .filter-sidebar-wrapper {
       flex-basis: 25%;
@@ -276,4 +297,5 @@ body {
       }
     }
   }
+
 }

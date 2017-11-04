@@ -5,7 +5,9 @@
  */
 export { default as Main } from './main';
 export { default as UserHome } from './user-home';
+export { default as HomePage} from './HomePage'
 export { Login } from './Login';
 export { Signup } from './Signup';
 export { default as Navbar } from './navbar';
 export { default as ProductList } from './product-list';
+export { default as FilterSidebar } from './filterSidebar';
