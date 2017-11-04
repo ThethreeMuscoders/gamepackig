@@ -87,7 +87,7 @@ export const fetchSingleCart = userId => (dispatch) => {
 
 export const updateCart = (cartId, body) => (dispatch) => {
   return axios.put(`/api/carts/${cartId}`, body)
-    .then(res => dispatch(updateCartInStore(res)))
+    .then(res => dispatch(updateCartInStore(res.data)))
     .catch(err => console.log(err));
 };
 
@@ -98,11 +98,11 @@ export const addCartItemToDatabase = cartItem => (dispatch) => {
       if (res.data) {
         res.data.quantity += cartItem.quantity;
         return axios.put(`/api/carts/${res.data.id}`, res.data)
-          .then(res2 => dispatch(updateCartInStore(res2)))
+          .then(res2 => dispatch(updateCartInStore(res2.data)))
           .catch(err => console.log(err));
       }
       return axios.post('/api/carts/', cartItem)
-        .then(postRes => dispatch(addCartToStore(postRes.data)));
+        .then(postRes => dispatch(addCartToStore(postRes.data[0])));
     })
     .catch(err => console.log(err));
 };

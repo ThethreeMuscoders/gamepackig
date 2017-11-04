@@ -39,24 +39,31 @@ router.get('/:userId/:productId', (req, res, next) => {
 // Creates single row in cart for one item
 router.post('/', (req, res, next) => {
   Cart.create(req.body)
-    .then(cart => res.status(201).json(cart))
-    .catch(next);
-});
-
-router.put('/:cartId', (req, res, next) => {
-  Cart.findById(req.params.cartId)
-    .then(cart => cart.update(req.body))
-    .then((cart) => {
-      Cart.findOne({
+    .then((createdCart) => {
+      Cart.findAll({
         where: {
-          id: cart.id,
+          id: createdCart.id,
         },
         include: [
           { model: Product, as: 'product' },
         ],
       })
-        .then(populatedCart => res.json(populatedCart));
+        .then(cart => res.status(201).json(cart));
     })
+    .catch(next);
+});
+
+router.put('/:cartId', (req, res, next) => {
+  Cart.findAll({
+    where: {
+      id: req.params.cartId,
+    },
+    include: [
+      { model: Product, as: 'product' },
+    ],
+  })
+    .then(cart => cart[0].update(req.body))
+    .then(cart => res.send(cart))
     .catch(next);
 });
 
