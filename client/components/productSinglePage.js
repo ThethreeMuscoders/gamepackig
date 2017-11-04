@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { fetchProduct, addCartItemToDatabase } from '../store';
+import { fetchProduct, addCartItemToDatabase, deleteReview } from '../store';
 import '../_productSinglePage.scss';
 import ReviewItem from './reviewItem';
 
@@ -12,22 +12,40 @@ export class ProductSinglePage extends React.Component {
     super(props);
     this.state = {
       quantity: 1,
+      reviews: []
     };
     this.handleQuantityChange = this.handleQuantityChange.bind(this);
+    this.handleRemoveReview = this.handleRemoveReview.bind(this);
   }
 
   componentDidMount() {
-    const { productId } = this.props.match.params;
-    this.props.fetchProduct(productId);
+    this.fetchProduct();
   }
 
+  fetchProduct() {
+    const { productId } = this.props.match.params;
+    this.props.fetchProduct(productId).then(({ product }) => {
+      const { reviews } = product;
+      this.setState({
+        reviews,
+      });
+    })
+  }
+  
   handleQuantityChange(e) {
     this.setState({ quantity: e.target.value });
   }
 
+  handleRemoveReview(reviewId) {
+    this.props.removeReview(reviewId).then(() => {
+      this.fetchProduct();
+    })
+  }
+
   render() {
     const { product, user, addItem } = this.props;
-    let reviews = product.reviews;
+    const { reviews } = this.state;
+    const { isAdmin } = user;
     return (
       <div className='product-single-page-wrapper'>
         <h1>This is the Product Single Page for {product.name} </h1>
@@ -36,7 +54,7 @@ export class ProductSinglePage extends React.Component {
           <div id='product-form'>
             <img src={product.image} alt={` image of ${product.name}`} />
             <h3>Price: {`$${product.price}`} </h3>
-            <form onSubmit={(e) => addItem(user, product, e)}>
+            <form onSubmit={e => addItem(user, product, e)}>
               <input type='number' name='quantity' min='1' max='10' value={this.state.quantity} onChange={this.handleQuantityChange}/>
               <button type='submit'> <i className='fa fa-cart-plus'/> Add to cart </button>
             </form>
@@ -54,7 +72,7 @@ export class ProductSinglePage extends React.Component {
                 reviews && reviews.map((review) => {
                   return (
                     <div key={review.id}>
-                      <ReviewItem review={review}/>
+                      <ReviewItem review={review} isAdmin={isAdmin} removeReview={this.handleRemoveReview}/>
                     </div>
                   );
                 }) 
@@ -76,9 +94,11 @@ const mapState = ({ selectedProduct, user }) => {
 };
 const mapDispatch = (dispatch, ownProps) => {
   return {
+
     fetchProduct(productId) {
-      dispatch(fetchProduct(productId));
+      return dispatch(fetchProduct(productId));
     },
+
     addItem(user, {price, id}, e) {
       e.preventDefault();
       const quantity = Number(e.target.quantity.value);
@@ -92,6 +112,11 @@ const mapDispatch = (dispatch, ownProps) => {
       dispatch(action);
       ownProps.history.push("/cart/");
     },
+
+    removeReview(reviewId) {
+      const action = deleteReview(reviewId);
+      return dispatch(action);
+    },
   };
 };
 
@@ -103,4 +128,5 @@ ProductSinglePage.propTypes = {
   match: PropTypes.object,
   selectedProduct: PropTypes.object,
   fetchProduct: PropTypes.func,
+  removeReview: PropTypes.func,
 } 

@@ -14,10 +14,14 @@ const starFunction = (num) => {
   return starArr;
 };
 
-export default function ReviewItem({ review }) {
+export default function ReviewItem({ review, isAdmin, removeReview }) {
   return (
     <div>
       <div id='userNameContainer'>
+        {
+        isAdmin &&
+        <button onClick={() => removeReview(review.id)}> Remove Review </button>
+        }
         <h2>{review.user.name}</h2>
         <div id='rating-container'>
           {starFunction(review.rating)}
@@ -29,6 +33,9 @@ export default function ReviewItem({ review }) {
   );
 };
 
+
 ReviewItem.propTypes = {
   review: PropTypes.object,
+  isAdmin: PropTypes.bool,
+  removeReview: PropTypes.func,
 } 
