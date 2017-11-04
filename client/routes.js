@@ -4,11 +4,7 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-<<<<<<< HEAD
-import { Main, Login, Signup, UserHome, ProductList, Cart } from './components';
-=======
-import { Main, Login, Signup, UserHome, ProductList, FilterSidebar } from './components';
->>>>>>> master
+import { Main, Login, Signup, UserHome, ProductList, FilterSidebar, Cart } from './components';
 import { me, fetchAllProducts } from './store';
 
 /**
