@@ -26,18 +26,18 @@ export const Navbar = (props) => {
               </div>
               : <div>
                 {/* The navbar will show these links before you log in */}
-                <Link to="/checkout"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
-                </Link>
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Sign Up</Link>
               </div>
           }
+          <Link to="/cart"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
+          </Link>
         </nav>
 
       </div>
       <div className="sub-nav">
         <div className="nav-cat">
-          <a>Categories</a>
+          <Link to="/products">All Products</Link>
         </div>
         <div className="nav-search">
           <input type="text" placeholder="search" onChange={e => filterProducts(products, e.target.value)} />
