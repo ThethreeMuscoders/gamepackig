@@ -20,14 +20,14 @@ export const ProductList = (props) => {
       </div>
     </div>
   );
-}
+};
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
   return {
-    products: state.products,
+    products: state.filteredProducts,
     cart: state.cart,
   };
 };

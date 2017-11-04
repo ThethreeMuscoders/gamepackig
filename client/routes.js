@@ -4,7 +4,11 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
+<<<<<<< HEAD
 import { Main, Login, Signup, UserHome, ProductList, Cart } from './components';
+=======
+import { Main, Login, Signup, UserHome, ProductList, FilterSidebar } from './components';
+>>>>>>> master
 import { me, fetchAllProducts } from './store';
 
 /**
@@ -35,6 +39,7 @@ class Routes extends Component {
             {/* Displays our Login component as a fallback */}
             <Route path="/login" component={Login} />
           </Switch>
+          <Route path="/products" component={FilterSidebar} />
           <Route path="/products" component={ProductList} />
           <Route path="/cart" component={Cart} />
         </Main>
