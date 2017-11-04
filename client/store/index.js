@@ -1,13 +1,15 @@
-import {createStore, combineReducers, applyMiddleware} from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import user from './user';
 import products from './products';
+import selectedProduct from './singleProduct';
 import cart from './cart';
 import filteredProducts from './filters';
+import reviews from './review';
 
-const reducer = combineReducers({ user, products, cart, filteredProducts });
+const reducer = combineReducers({ user, products, cart, filteredProducts, selectedProduct, reviews });
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({ collapsed: true }),
@@ -19,3 +21,5 @@ export * from './user';
 export * from './products';
 export * from './filters';
 export * from './cart';
+export * from './singleProduct';
+export * from './review';
