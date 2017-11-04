@@ -44,10 +44,19 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:cartId', (req, res, next) => {
-  console.log(req.params.cartId, 'API')
   Cart.findById(req.params.cartId)
     .then(cart => cart.update(req.body))
-    .then(cart => res.send(cart))
+    .then((cart) => {
+      Cart.findOne({
+        where: {
+          id: cart.id,
+        },
+        include: [
+          { model: Product, as: 'product' },
+        ],
+      })
+        .then(populatedCart => res.json(populatedCart));
+    })
     .catch(next);
 });
 
