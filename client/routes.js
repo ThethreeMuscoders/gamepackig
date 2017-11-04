@@ -25,10 +25,9 @@ class Routes extends Component {
             {/* Routes placed here are available to all visitors */}
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path='/products/:productId' component = {ProductSinglePage}/>
             {
               isLoggedIn &&
-                <Switch>
+              <Switch>
                   {/* Routes placed here are only available after logging in */}
                   <Route path="/home" component={UserHome} />
                 </Switch>
@@ -36,8 +35,9 @@ class Routes extends Component {
             {/* Displays our Login component as a fallback */}
             <Route path="/login" component={Login} />
           </Switch>
-          <Route path="/products" component={FilterSidebar} />
-          <Route path="/products" component={ProductList} />
+          <Route exact path="/products" component={FilterSidebar} />
+          <Route exact path="/products" component={ProductList} />
+          <Route path='/products/:productId' component = {ProductSinglePage}/>
           <Route path="/cart" component={Cart} />
         </Main>
       </Router>
@@ -58,21 +58,12 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-<<<<<<< HEAD
-    loadInitialData () {
-      dispatch(me())
-      dispatch(fetchAllProducts())
-    }
-  }
-}
-=======
     loadInitialData(userId) {
       dispatch(me());
       dispatch(fetchAllProducts());
     },
   };
 };
->>>>>>> master
 
 export default connect(mapState, mapDispatch)(Routes)
 

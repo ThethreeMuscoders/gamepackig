@@ -18,10 +18,13 @@ export default function ReviewItem({ review }) {
   return (
     <div>
       <div id='userNameContainer'>
-        <h3>{review.user.name}</h3>
-        {starFunction(review.rating)}
+        <h2>{review.user.name}</h2>
+        <div id='rating-container'>
+          {starFunction(review.rating)}
+        </div>
       </div>
       <p>{review.description}</p>
+      <hr/>
     </div>
   );
 };
