@@ -165,6 +165,7 @@ const createPurchaseHistories = () => {
   for (let i = 0; i < amountOfHistories; i += 1) {
     const { product, productId } = selectProduct();
     const { price } = product;
+    const quantity = Math.floor(Math.random() * 10) + 1;
     const { userId } = selectUser();
     const deliveryDate = chance.date({ string: true });
     const expectedDate = chance.bool({ likelihood: lateDayChance })
@@ -178,6 +179,7 @@ const createPurchaseHistories = () => {
       expectedDate,
       status,
       price,
+      quantity,
       productId,
       userId,
     });

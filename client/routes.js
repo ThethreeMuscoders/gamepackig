@@ -4,7 +4,17 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { Main, Login, Signup, UserHome, ProductList, FilterSidebar, Cart, ProductSinglePage  } from './components';
+import {
+  Main,
+  Login,
+  Signup,
+  UserHome,
+  ProductList,
+  FilterSidebar,
+  Cart,
+  ProductSinglePage,
+  Checkout,
+} from './components';
 import { me, fetchAllProducts } from './store';
 
 /**
@@ -39,7 +49,8 @@ class Routes extends Component {
           <Route exact path="/products" component={ProductList} />
           <Route path='/products/:productId' component = {ProductSinglePage}/>
           <Route path="/cart" component={Cart} />
-        </Main>
+          <Route path="/checkout" component={Checkout} />
+          </Main>
       </Router>
     )
   }
