@@ -1,0 +1,160 @@
+@import './_variables.scss';
+
+.checkout-wrapper {
+  display: flex;
+  margin: 1em;
+  width: 100%;
+  height: calc(100vh - 16em);
+  @include box-shadow(0px, 0px, 1px, 0px, #bbb);
+}
+
+.checkout-details,
+.user-details {
+  margin: 1em;
+  flex-basis: 50%;
+  height: calc(100% - 2em);
+  @include box-shadow(0px, 0px, 1px, 0px, #777);
+  overflow: scroll;
+
+}
+
+.title {
+  @include flex-center();
+  margin: 1em 10em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid $gp-blue;
+  font-size: 2em;
+}
+
+.checkout-details {
+  margin: 1em;
+  overflow: scroll;
+  @include box-shadow(0px, 0px, 1px, 0px, #777);
+
+  .checkout-item {
+    display: flex;
+    align-items: center;
+    margin: 1em;
+    padding: 1em 10em;
+    width: calc(100% - 22em);
+    height: 8em;
+    border-radius: 5px;
+
+    img {
+      height: 100%;
+      flex-basis: 10%;
+    }
+
+    p {
+      font-size: 1.75em;
+      margin: 0 2em;
+      flex-basis: 30%;
+    }
+
+  }
+}
+
+form {
+  margin: 2em 10em;
+
+  label {
+    font-size: 2em;
+    margin-top: 1em;
+  }
+
+  .user-section {
+    @include box-shadow(0px, 0px, 1px, 0px, #777);
+    border-radius: 5px;
+    width: calc(100% - 2em);
+
+    input {
+      font-size: 1.5em;
+      margin: 1em;
+      border-radius: 5px;
+      width: calc(100% - 4em);
+    }
+  }
+
+  .address-section {
+    @include box-shadow(0px, 0px, 1px, 0px, #777);
+    border-radius: 5px;
+
+    input {
+      font-size: 1.5em;
+      margin: 1em;
+      border-radius: 5px;
+    }
+
+    input:nth-child(1),
+    input:nth-child(2) {
+      width: calc(50% - 4em);
+    }
+
+    input:nth-child(4) {
+      width: 2em;
+    }
+  }
+
+  .card-section {
+    @include box-shadow(0px, 0px, 1px, 0px, #777);
+    border-radius: 5px;
+
+    input {
+      font-size: 1.5em;
+      margin: 1em;
+      border-radius: 5px;
+    }
+
+    input:nth-child(1) {
+      width: calc(60% - 4em);
+    }
+
+    input:nth-child(2) {
+      width: calc(40% - 4em);
+    }
+
+    input:nth-child(3) {
+      width: calc(80% - 4em);
+    }
+
+    input:nth-child(4) {
+      width: calc(20% - 4em);
+    }
+  }
+
+  .confirm-section {
+    @include box-shadow(0px, 0px, 1px, 0px, #777);
+    border-radius: 5px;
+    width: calc(100% - 2em);
+    display: flex;
+    font-size: 1.75em;
+
+    .confirm-total {
+      display: flex;
+      flex-wrap: wrap;
+      flex-basis: 70%;
+
+      p {
+        flex-basis: 50%;
+      }
+    }
+
+    a {
+      color: white;
+      justify-self: center;
+      align-self: center;
+      flex-basis: 25%;
+      text-align: center;
+      margin-right: 1em;
+      padding: 0.5em 1em;
+      font-size: 1.25em;
+      border: 0px;
+      border-radius: 5px;
+      background: $gp-blue;
+    }
+
+    a:hover {
+      background: $gp-red;
+    }
+  }
+}
