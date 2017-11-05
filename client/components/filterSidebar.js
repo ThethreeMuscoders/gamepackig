@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom';
 import { filterProductsInStore } from '../store';
 import { urlToProperty } from "query-string-params";
 
+import '../css/_filterSidebar.scss';
+
 /**
  * COMPONENT
  */

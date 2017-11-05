@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Product from './product';
 
+import '../css/_productList.scss';
+
+
 /**
  * COMPONENT
  */
