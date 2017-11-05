@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
 import { Main, Login, Signup, UserHome, ProductList, FilterSidebar, Cart, ProductSinglePage  } from './components';
-import { me, fetchAllProducts } from './store';
+import { me, fetchAllProducts, fetchAllCategories } from './store';
 
 /**
  * COMPONENT
@@ -61,6 +61,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData(userId) {
       dispatch(me());
       dispatch(fetchAllProducts());
+      dispatch(fetchAllCategories());
     },
   };
 };

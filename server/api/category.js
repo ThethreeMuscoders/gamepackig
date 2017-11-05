@@ -13,10 +13,9 @@ router.param('categoryId', (req, res, next, categoryId) => {
 })
 
 router.get('/', (req, res, next) => {
-  Category.findAll({
-  })
+  Category.findAll()
     .then(categories => res.json(categories))
-    .catch(next)
+    .catch(next);
 })
 
 router.get('/:categoryId', (req, res, next) => {

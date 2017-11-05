@@ -366,12 +366,14 @@ body {
       }
 
       .max-price,
-      .sort-by {
+      .sort-by,
+      .category-filter {
         width: 100%;
         margin: 1em 0;
       }
 
-      .sort-by {
+      .sort-by,
+      .category-filter {
         font-size: 0.8em;
 
         select {

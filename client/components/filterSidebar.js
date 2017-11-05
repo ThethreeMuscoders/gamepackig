@@ -15,11 +15,12 @@ export class FilterSidebar extends Component {
       price: 1000,
       sort: 'ASC-Price',
       search: '',
+      category: 'All Categories',
     };
   }
 
   render() {
-    const { products, filterProducts, location, submitSearch } = this.props;
+    const { products, filterProducts, location, submitSearch, categories } = this.props;
     const { price } = this.state;
     const defaultSearchVal = location.search ? urlToProperty(location.search).search[0] : '';
 
@@ -41,6 +42,18 @@ export class FilterSidebar extends Component {
           <select name="sort-by" onChange={e => this.setState({ sort: e.target.value })}>
             <option value="ASC-Price" selected>Lowest Price</option>
             <option value="DESC-Price">Highest Price</option>
+          </select>
+        </div>
+
+        <div className="category-filter">
+          <label htmlFor="cat-filter">By Category</label>
+          <select name="cat-filter" onChange={e => this.setState({ category: e.target.value })}>
+            <option value="All Categories" selected>All Categories</option>
+            {
+              categories.map(cat => (
+                <option key={cat.id} value={cat.id}>{cat.category}</option>
+              ))
+            }
           </select>
         </div>
 
@@ -69,17 +82,30 @@ export class FilterSidebar extends Component {
 const mapState = (state) => {
   return {
     products: state.products,
+    categories: state.categories,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    filterProducts(products, { price, sort, search }) {
-      const filtered = products.filter(product => (
-        product.price < price
-        && product.name.toUpperCase().match(search.toUpperCase())
-      ))
-        .sort((a, b) => sort === 'ASC-Price' ? a.price - b.price : b.price - a.price);
+    filterProducts(products, { price, sort, search, category }) {
+      let filtered;
+
+      if (category === 'All Categories') {
+        filtered = products.filter(product => (
+          product.price < price
+          && product.name.toUpperCase().match(search.toUpperCase())
+        ))
+          .sort((a, b) => sort === 'ASC-Price' ? a.price - b.price : b.price - a.price);
+      } else {
+        filtered = products.filter(product => (
+          product.price < price
+          && product.categoryId === +category
+          && product.name.toUpperCase().match(search.toUpperCase())
+        ))
+          .sort((a, b) => sort === 'ASC-Price' ? a.price - b.price : b.price - a.price);
+      }
+
       const action = filterProductsInStore(filtered);
       dispatch(action);
     },
