@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { addCartItemToDatabase } from '../store';
+import { addCartItemToDatabase, addCartItemToGuestSession } from '../store';
 
 function Product(props) {
   const { user, cart, product, addItem } = props;
@@ -50,9 +50,11 @@ const mapDispatch = (dispatch) => {
         price,
         quantity: 1,
         productId: id,
-        userId: user.id,
+        userId: user.id || null,
       };
-      const action = addCartItemToDatabase(item);
+      const action = user.isGuest
+        ? addCartItemToGuestSession(item, user)
+        : addCartItemToDatabase(item);
       dispatch(action);
     },
   };

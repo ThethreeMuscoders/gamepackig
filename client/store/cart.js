@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+
 // Actions
 const GET_ALL_CARTS = 'GET_ALL_CARTS';
 const GET_SINGLE_CART = 'GET_SINGLE_CART';
@@ -84,6 +85,10 @@ export const fetchSingleCart = userId => (dispatch) => {
     .catch(err => console.log(err));
 };
 
+// Guest Thunk to 'create' single cart
+export const fetchGuestCart = guestUser => (dispatch) => {
+  dispatch(getSingleCart(guestUser.cart));
+};
 
 export const updateCart = (cartId, body) => (dispatch) => {
   return axios.put(`/api/carts/${cartId}`, body)
@@ -107,8 +112,29 @@ export const addCartItemToDatabase = cartItem => (dispatch) => {
     .catch(err => console.log(err));
 };
 
+export const addCartItemToGuestSession = cartItem => (dispatch) => {
+  axios.post('/api/guestCart', cartItem)
+    .then(res => res.data)
+    .then(cart => console.log(cart, "here"))
+    .catch(err => console.log(err));
+};
+
 export const deleteCart = cartId => (dispatch) => {
   return axios.delete(`/api/carts/${cartId}`)
     .then(() => dispatch(deleteCartFromStore(cartId)))
     .catch(err => console.log(err));
 };
+
+// Fetches product information for the session cartItem
+// const axiosFetchProduct = (productId) => {
+  //   axios.get(`/api/products/${productId}`)
+  //   .then(res => res.data)
+  //   .catch(err => console.log(err))
+  // }
+// guestUser.cart.map((cart) => {
+//   if (cart.productId === cartItem.productId) {
+//     cart.quantity += cartItem.quantity;
+//   }
+//   return cart;
+// });
+// dispatch(addCartToStore(guestUser.cart))

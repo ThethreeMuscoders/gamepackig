@@ -36,6 +36,14 @@ router.post('/logout', (req, res) => {
 })
 
 router.get('/me', (req, res) => {
+  if (!req.user) {
+    req.session.cart = req.session.cart || [];
+    req.user = {
+      sessionID: req.sessionID,
+      isGuest: true,
+      cart: req.session.cart,
+    };
+  }
   res.json(req.user)
 })
 
