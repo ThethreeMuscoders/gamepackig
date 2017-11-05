@@ -15,7 +15,6 @@ export const HomePage = (props) => {
   const { email, products} = props
   const featuredProducts = Array(6).fill(1).map(x =>  Math.floor(200 * Math.random()))
 
-  // products on state get length, pick random number between it, use it
   return (
     <div className="homePage-wrapper">
 
