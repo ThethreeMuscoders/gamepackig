@@ -8,12 +8,23 @@ import selectedProduct from './singleProduct';
 import cart from './cart';
 import filteredProducts from './filters';
 import reviews from './review';
+import purchaseHistory from './purchaseHistory';
 
-const reducer = combineReducers({ user, products, cart, filteredProducts, selectedProduct, reviews });
+const reducer = combineReducers({
+  user,
+  products,
+  cart,
+  filteredProducts,
+  selectedProduct,
+  reviews,
+  purchaseHistory,
+});
+
 const middleware = composeWithDevTools(applyMiddleware(
   thunkMiddleware,
   createLogger({ collapsed: true }),
 ));
+
 const store = createStore(reducer, middleware);
 
 export default store;
@@ -23,3 +34,4 @@ export * from './filters';
 export * from './cart';
 export * from './singleProduct';
 export * from './review';
+export * from './purchaseHistory'
