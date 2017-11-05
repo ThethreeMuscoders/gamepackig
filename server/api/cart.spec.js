@@ -116,11 +116,11 @@ describe('Cart Routes', () => {
         .send(cartToPost)
         .expect(201)
         .then(({ body }) => {
-          expect(body).to.be.an('object');
-          expect(body.price).to.be.equal(cartToPost.price);
-          expect(body.quantity).to.be.equal(cartToPost.quantity);
-          expect(body.userId).to.be.equal(cartToPost.userId);
-          expect(body.productId).to.be.equal(cartToPost.productId);
+          expect(body).to.be.an('array');
+          expect(body[0].price).to.be.equal(cartToPost.price);
+          expect(body[0].quantity).to.be.equal(cartToPost.quantity);
+          expect(body[0].userId).to.be.equal(cartToPost.userId);
+          expect(body[0].productId).to.be.equal(cartToPost.productId);
         });
     });
 
