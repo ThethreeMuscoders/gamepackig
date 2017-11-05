@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { addHistoryItemToDatabase } from '../store';
 
 import '../css/_checkout.scss';
 
@@ -9,7 +10,7 @@ import '../css/_checkout.scss';
  * COMPONENT
  */
 export const Checkout = (props) => {
-  const { user, cart } = props;
+  const { user, cart, submitCheckout } = props;
   const { name, email, billingAddress, shippingAddress } = user;
   let subtotal = 0.00;
   let items = 0;
@@ -46,7 +47,7 @@ export const Checkout = (props) => {
         <div className="title">
           <h3>Checkout Details</h3>
         </div>
-        <form>
+        <form onSubmit={e => submitCheckout(e, cart)}>
 
           <label>Contact Details</label>
           <div className="user-section">
@@ -87,7 +88,7 @@ export const Checkout = (props) => {
               <p>Sub-Total: ${subtotal.toFixed(2)}</p>
               <p><b>Total: ${total.toFixed(2)}</b></p>
             </div>
-            <Link to="/successful-order">Order Now</Link>
+            <input type="submit" value="Order Now"></input>
           </div>
         </form>
       </div>
@@ -106,13 +107,35 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = null;
+const mapDispatch = (dispatch) => {
+  return {
+    submitCheckout(e, cart) {
+      e.preventDefault();
+      // e.target['bill-name'] to access form
+      const shippingTime = 7;
+      const date = new Date();
+      date.setDate(date.getDate() + shippingTime);
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const year = date.getFullYear();
+      const dateStr = `${month}/${day}/${year}`;
 
-// const mapDispatch = (dispatch) => {
-//   return {
-
-//   };
-// };
+      cart.forEach((item) => {
+        const historyItem = {
+          status: 'CREATED',
+          userId: item.userId,
+          productId: item.productId,
+          price: item.price,
+          quantity: item.quantity,
+          deliveryDate: null,
+          expectedDate: dateStr,
+        };
+        const action = addHistoryItemToDatabase(historyItem);
+        dispatch(action);
+      });
+    },
+  };
+};
 
 export default connect(mapState, mapDispatch)(Checkout);
 
