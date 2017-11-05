@@ -1,11 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { logout, filterProductsInStore } from '../store';
 
 export const Navbar = (props) => {
-  const { products, isLoggedIn, handleClick, filterProducts } = props;
+  const {
+    products,
+    isLoggedIn,
+    handleClick,
+    submitSearch,
+    searchButton,
+    filterProducts
+  } = props;
 
   return (
     <div>
@@ -19,8 +26,7 @@ export const Navbar = (props) => {
             isLoggedIn
               ? <div>
                 {/* The navbar will show these links after you log in */}
-                <Link to="/checkout"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
-                </Link>
+                
                 <Link to="/account">Account</Link>
                 <a href="#" onClick={handleClick}>Logout</a>
               </div>
@@ -30,8 +36,10 @@ export const Navbar = (props) => {
                 <Link to="/signup">Sign Up</Link>
               </div>
           }
+          <div>
           <Link to="/cart"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
           </Link>
+          </div>
         </nav>
 
       </div>
@@ -40,7 +48,21 @@ export const Navbar = (props) => {
           <Link to="/products">All Products</Link>
         </div>
         <div className="nav-search">
-          <input type="text" placeholder="search" onChange={e => filterProducts(products, e.target.value)} />
+          <input
+            id="nav-search"
+            type="text"
+            placeholder="search"
+            list="auto-fill-products"
+            onKeyPress={e => submitSearch(e, products, filterProducts, searchButton)}
+          />
+          <datalist id="auto-fill-products">
+          {
+            products.map(product => (
+              <option key={product.id} value={product.name}></option>
+            ))
+          }
+          </datalist>
+          <button onClick={e => searchButton(products, filterProducts)}>Search</button>
         </div>
       </div>
     </div>
@@ -58,15 +80,25 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     handleClick() {
       dispatch(logout());
     },
-    filterProducts: function (products, input) {
-      const filtered = products.filter(product => {
-        return product.name.toUpperCase().match(input.toUpperCase());
-      });
+    submitSearch(e, products, filterProducts, searchButton) {
+      if (e.key === "Enter") {
+        searchButton(products, filterProducts, e.target.value)
+      }
+    },
+    searchButton(products, filterProducts, name) {
+      if (!name) name = document.getElementById("nav-search").value;
+      filterProducts(products, name);
+      ownProps.history.push(`/products/?search=${name}`);
+    },
+    filterProducts(products, search) {
+      const filtered = products.filter(product => (
+        product.name.toUpperCase().match(search.toUpperCase())
+      ));
       const action = filterProductsInStore(filtered);
       dispatch(action);
     },
@@ -75,7 +107,7 @@ const mapDispatch = (dispatch) => {
 
   // The `withRouter` wrapper makes sure that updates are not blocked
   // when the url changes
-  export default connect(mapState, mapDispatch)(Navbar);
+  export default withRouter(connect(mapState, mapDispatch)(Navbar));
 
   /**
    * PROP TYPES

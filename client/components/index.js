@@ -6,9 +6,11 @@
 export { default as Main } from './main';
 export { default as UserHome } from './user-home';
 export { default as HomePage} from './HomePage'
+export { default as UserSidebar} from './UserSidebar'
 export { Login } from './Login';
 export { Signup } from './Signup';
 export { default as Navbar } from './navbar';
 export { default as ProductList } from './product-list';
+export { default as ProductSinglePage } from './productSinglePage';
 export { default as FilterSidebar } from './filterSidebar';
 export { default as Cart } from './cart';

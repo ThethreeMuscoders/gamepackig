@@ -52,9 +52,7 @@ const reducerMethods = {
     return action.cart;
   },
   UPDATE_CART_ITEM(state, action) {
-    return state.map((cart) => {
-      return cart.id === action.cart.id ? action.cart : cart;
-    });
+    return state.map(cart => (cart.id === action.cart.id ? action.cart : cart));
   },
   ADD_CART_ITEM(state, action) {
     return [...state, action.cart];

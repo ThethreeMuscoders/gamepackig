@@ -101,7 +101,7 @@ export const updateReview = (reviewId, body) => (dispatch) => {
 };
 
 export const deleteReview = reviewId => (dispatch) => {
-  return axios.delete(`/api/carts/${reviewId}`)
-    .then(() => dispatch(deleteReview(reviewId)))
+  return axios.delete(`/api/reviews/${reviewId}`)
+    .then(() => dispatch(deleteReviewFromStore(reviewId)))
     .catch(err => console.log(err));
 };

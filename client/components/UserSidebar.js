@@ -8,7 +8,7 @@ import { urlToProperty } from "query-string-params";
 /**
  * COMPONENT
  */
-export class FilterSidebar extends Component {
+export class UserSidebar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -25,39 +25,11 @@ export class FilterSidebar extends Component {
 
     return (
       <div className="filter-sidebar-wrapper">
-        <h3>Filter</h3>
+        <h3>Account</h3>
 
-        <input
-          className="search"
-          type="text"
-          placeholder="search"
-          defaultValue={defaultSearchVal}
-          onChange={e => this.setState({ search: e.target.value })}
-          onKeyPress={submitSearch}
-        />
-
-        <div className="sort-by">
-          <label htmlFor="sort-by">Sort By</label>
-          <select name="sort-by" onChange={e => this.setState({ sort: e.target.value })}>
-            <option value="ASC-Price" selected>Lowest Price</option>
-            <option value="DESC-Price">Highest Price</option>
-          </select>
-        </div>
-
-        <div className="max-price">
-          <label htmlFor="max-price">Maximum Price - ${this.state.price}</label>
-          <input
-            name="max-price"
-            type="range"
-            min="0"
-            max="1000"
-            step="10"
-            value={price}
-            onChange={e => this.setState({ price: e.target.value })}
-          />
-        </div>
-
-        <button id="filter-submit-btn" onClick={() => filterProducts(products, this.state)}>Set Filter</button>
+        <button>Change Info</button>
+        <button>Orders</button>
+        <button>Purchase History</button>
       </div>
     );
   }
@@ -91,11 +63,11 @@ const mapDispatch = (dispatch) => {
   };
 };
 
-export default withRouter(connect(mapState, mapDispatch)(FilterSidebar));
+export default withRouter(connect(mapState, mapDispatch)(UserSidebar));
 
 /**
  * PROP TYPES
  */
-FilterSidebar.propTypes = {
+UserSidebar.propTypes = {
 
 };
