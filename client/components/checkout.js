@@ -24,6 +24,8 @@ export const Checkout = (props) => {
   const shipping = subtotal > 0 ? 8.95 * items : 0.00;
   const total = subtotal + tax + shipping;
 
+  console.log(emailjs);
+
   return (
     <div className="checkout-wrapper">
 
@@ -133,6 +135,14 @@ const mapDispatch = (dispatch) => {
         const action = addHistoryItemToDatabase(historyItem);
         dispatch(action);
       });
+    },
+    sendEmail() {
+      const serviceId = "default_service";
+      const templateId = "gamepackig-confirm-order";
+
+      emailjs.send(serviceId, templateId, params)
+        .then(() => console.log('Sent'))
+        .catch(console.error);
     },
   };
 };
