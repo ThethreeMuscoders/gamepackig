@@ -21,7 +21,7 @@ export const Navbar = (props) => {
     <div>
       <div className="nav">
         <div className="logo">
-          <img src="client/public/assets/gamepad.svg" alt="game controller icon" />
+          <img src="/assets/gamepad.svg" alt="game controller icon" />
           <Link to="/home"><h1>gamepackig</h1></Link>
         </div>
         <nav>

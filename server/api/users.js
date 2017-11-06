@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, Cart, PurchaseHistory } = require('../db/models');
-
+const {isUser} = require('../middleware/auth')
 module.exports = router;
 
 const attributes = ['id', 'name', 'email', 'billingAddress', 'shippingAddress', 'isAdmin'];
@@ -46,8 +46,14 @@ router.get('/:id', (req, res, next) => {
 });
 
 // Update user
-router.put('/:id', (req, res, next) => {
-  req.selectedUser.update(req.body)
+router.put('/:id', isUser, (req, res, next) => {
+  let userId = req.params.id
+  console.log(req.body)
+  User.update({
+    where: {
+      id: userId
+    }
+  }, req.body)
     .then((updatedUser) => {
       res.json(updatedUser);
     })

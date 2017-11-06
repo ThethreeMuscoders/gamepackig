@@ -4,18 +4,18 @@ import { connect } from 'react-redux';
 import Product from '.././product';
 
 import '../../css/_userSettings.scss';
+import {updateUserInDatabase} from '../../store'
 
 
 /**
  * COMPONENT
  */
 export const UserSettings = (props) => {
-  const { products, user } = props;
-  console.log(user, 'user');
+  const { products, user, updateUserInDatabase } = props;
   return (
     <div className="user-settings-wrapper">
       <div className="settings-list">
-      <form className="form-horizontalTest">
+      <form className="form-horizontalTest" onSubmit={(e) => updateUserInDatabase(user.id, e)}>
       <fieldset>
         <legend>Update Account</legend>
       
@@ -24,8 +24,9 @@ export const UserSettings = (props) => {
             <h4 className="testClass">Name</h4>
             <input
               className=""
+              name="name"
               type="text"
-              value={user.name}
+              
             />
           </div>
         </div>
@@ -36,6 +37,8 @@ export const UserSettings = (props) => {
           <input
             className=""
             type="text"
+            name="email"
+            
           />
         </div>
       </div>
@@ -45,6 +48,10 @@ export const UserSettings = (props) => {
         <input
           className=""
           type="text"
+          name="shippingAddress"
+          placeholder={
+           'Where should we ship this?'
+          }
         />
       </div>
     </div>
@@ -55,6 +62,8 @@ export const UserSettings = (props) => {
       <input
         className=""
         type="text"
+        name="billingAddress"
+        placeholder= {'Where should we bill you?'}
       />
     </div>
   </div>
@@ -64,6 +73,7 @@ export const UserSettings = (props) => {
             <button
               type="submit"
               className=""
+            
               >
               Update Account
         </button>
@@ -86,15 +96,23 @@ const mapState = (state) => {
   };
 };
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     fetchAllProducts: function () {
+const mapDispatch = (dispatch) => {
+  return {
+    updateUserInDatabase: function (id, e) {
+      e.preventDefault();
+      console.log('e', e.target.email)
+      const name = e.target.name.value
+      const email = e.target.email.value
+      const shippingAddress = e.target.shippingAddress.value
+      const billingAddress = e.target.billingAddress.value
+        
+      
+      dispatch(updateUserInDatabase(id, {name, email, shippingAddress, billingAddress}))
+    },
+  }
+}
 
-//     },
-//   }
-// }
-
-export default connect(mapState)(UserSettings);
+export default connect(mapState, mapDispatch)(UserSettings);
 
 /**
  * PROP TYPES

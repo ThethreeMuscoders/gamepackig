@@ -1,3 +1,4 @@
+const User = require('../db/models') 
 module.exports = {
   isAdmin: (req, res, next) => {
     if (req.user && req.user.isAdmin) return next();
@@ -6,4 +7,11 @@ module.exports = {
     err.satus = 401;
     next(err);
   },
+
+  isUser: (req, res, next) => {
+    User.findById(req.user.id)
+    .then((user) => {
+      console.log(user, "user isUser");
+    })
+  }
 };
