@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const { User, Cart, PurchaseHistory } = require('../db/models');
-const {isUser} = require('../middleware/auth')
+const { isUser } = require('../middleware/auth')
 module.exports = router;
 
 const attributes = ['id', 'name', 'email', 'billingAddress', 'shippingAddress', 'isAdmin'];
@@ -10,8 +10,8 @@ router.param('id', (req, res, next, id) => {
   User.findById(id, {
     attributes,
     include: [
-      { model: Cart, as: 'product' },
-      { model: PurchaseHistory, as: 'purchases' },
+       Cart ,
+      PurchaseHistory,
     ],
   })
     .then((user) => {
@@ -48,12 +48,12 @@ router.get('/:id', (req, res, next) => {
 // Update user
 router.put('/:id', isUser, (req, res, next) => {
   let userId = req.params.id
-  console.log(req.body)
-  User.update({
+  console.log(req.body, 'console.req.body')
+  User.update(req.body, {
     where: {
       id: userId
     }
-  }, req.body)
+  })
     .then((updatedUser) => {
       res.json(updatedUser);
     })

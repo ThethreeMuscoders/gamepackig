@@ -53,9 +53,10 @@ export const logout = () =>
 
 
 export const updateUserInDatabase = (id, user) => dispatch => {
-  console.log(user, ' user')
-  axios.put(`/api/users/${id}`, user)
-        .then(res => dispatch(updateUser(res.data)))
+  console.log(user, ' userId')
+  return axios.put(`/api/users/${id}`, user)
+        .then(res => {console.log('inside the then')
+          dispatch(updateUser(res.data))})
         .catch(err => console.error(`Updating user: ${user} unsuccesful`, err));
 };
 /**
