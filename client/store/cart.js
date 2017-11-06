@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { errorState } from './';
 // Actions
 const GET_ALL_CARTS = 'GET_ALL_CARTS';
 const GET_SINGLE_CART = 'GET_SINGLE_CART';
@@ -104,7 +104,7 @@ export const addCartItemToDatabase = cartItem => (dispatch) => {
       return axios.post('/api/carts/', cartItem)
         .then(postRes => dispatch(addCartToStore(postRes.data[0])));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const deleteCart = cartId => (dispatch) => {
