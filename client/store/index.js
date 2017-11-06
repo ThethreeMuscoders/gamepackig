@@ -9,6 +9,7 @@ import cart from './cart';
 import filteredProducts from './filters';
 import reviews from './review';
 import purchaseHistory from './purchaseHistory';
+import categories from './categories';
 
 const reducer = combineReducers({
   user,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   selectedProduct,
   reviews,
   purchaseHistory,
+  categories,
 });
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -34,4 +36,5 @@ export * from './filters';
 export * from './cart';
 export * from './singleProduct';
 export * from './review';
-export * from './purchaseHistory'
+export * from './purchaseHistory';
+export * from './categories';
