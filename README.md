@@ -1,5 +1,5 @@
 # Depoyed Link
-[https://gamepackig.herokuapp.com/ link](https://gamepackig.herokuapp.com/)
+[https://gamepackig.herokuapp.com/](https://gamepackig.herokuapp.com/)
 
 # Boilermaker
 
