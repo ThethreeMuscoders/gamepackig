@@ -10,8 +10,8 @@ import '../../css/_userSettings.scss';
  * COMPONENT
  */
 export const UserSettings = (props) => {
-  const { products } = props;
-
+  const { products, user } = props;
+  console.log(user, 'user');
   return (
     <div className="user-settings-wrapper">
       <div className="settings-list">
@@ -25,6 +25,7 @@ export const UserSettings = (props) => {
             <input
               className=""
               type="text"
+              value={user.name}
             />
           </div>
         </div>
@@ -81,8 +82,7 @@ export const UserSettings = (props) => {
  */
 const mapState = (state) => {
   return {
-    products: state.filteredProducts,
-    cart: state.cart,
+    user: state.user,
   };
 };
 

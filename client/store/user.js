@@ -32,9 +32,10 @@ export const me = () =>
       })
       .catch(err => console.log(err));
 
-export const auth = (email, password, method) =>
-  dispatch =>
-    axios.post(`/auth/${method}`, { email, password })
+export const auth = (name, email, password, method) =>
+console.log('auth : name, pw, email', name, password, email)  
+dispatch =>
+    axios.post(`/auth/${method}`, { name, email, password })
       .then(res => {
         dispatch(getUser(res.data))
         history.push('/home')
