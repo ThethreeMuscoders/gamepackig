@@ -61,6 +61,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData(userId) {
       dispatch(me());
       dispatch(fetchAllProducts());
+      
     },
   };
 };

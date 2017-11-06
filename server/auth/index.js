@@ -31,6 +31,8 @@ router.post('/signup', (req, res, next) => {
 })
 
 router.post('/logout', (req, res) => {
+  //Note: reset the req.session.cart here
+  req.session.cart = [];
   req.logout()
   res.redirect('/')
 })

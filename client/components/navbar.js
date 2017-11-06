@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
-import { logout, filterProductsInStore } from '../store';
+import { logout, filterProductsInStore, me } from '../store';
 
 export const Navbar = (props) => {
   const {
@@ -36,7 +36,7 @@ export const Navbar = (props) => {
               </div>
           }
           <div>
-          <Link to="/cart"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
+            <Link to="/cart"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
           </Link>
           </div>
         </nav>
@@ -55,11 +55,11 @@ export const Navbar = (props) => {
             onKeyPress={e => submitSearch(e, products, filterProducts, searchButton)}
           />
           <datalist id="auto-fill-products">
-          {
-            products.map(product => (
-              <option key={product.id} value={product.name}></option>
-            ))
-          }
+            {
+              products.map(product => (
+                <option key={product.id} value={product.name}></option>
+              ))
+            }
           </datalist>
           <button onClick={e => searchButton(products, filterProducts)}>Search</button>
         </div>
@@ -82,7 +82,10 @@ const mapState = (state) => {
 const mapDispatch = (dispatch, ownProps) => {
   return {
     handleClick() {
-      dispatch(logout());
+      dispatch(logout())
+        .then(() => dispatch(me()));
+      // dispatch(me());
+      // NOTE Get user (GuestUser, which will also get the cart?) Dispatch Clear store? get me?
     },
     submitSearch(e, products, filterProducts, searchButton) {
       if (e.key === "Enter") {
@@ -104,14 +107,14 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-  // The `withRouter` wrapper makes sure that updates are not blocked
-  // when the url changes
-  export default withRouter(connect(mapState, mapDispatch)(Navbar));
+// The `withRouter` wrapper makes sure that updates are not blocked
+// when the url changes
+export default withRouter(connect(mapState, mapDispatch)(Navbar));
 
-  /**
-   * PROP TYPES
-   */
-  Navbar.propTypes = {
-    handleClick: PropTypes.func.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-  };
+/**
+ * PROP TYPES
+ */
+Navbar.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};
