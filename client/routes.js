@@ -15,7 +15,7 @@ import {
   ProductSinglePage,
   Checkout,
 } from './components';
-import { me, fetchAllProducts } from './store';
+import { me, fetchAllProducts, fetchAllCategories } from './store';
 
 /**
  * COMPONENT
@@ -72,6 +72,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData(userId) {
       dispatch(me());
       dispatch(fetchAllProducts());
+      dispatch(fetchAllCategories());
     },
   };
 };

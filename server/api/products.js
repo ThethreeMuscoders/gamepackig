@@ -1,12 +1,14 @@
 const router = require('express').Router();
-const { Product, Review, User } = require('../db/models');
+const { Product, Review, User, Category } = require('../db/models');
 
 module.exports = router;
 
 // router.param('productId', )
 
 router.get('/', (req, res, next) => {
-  Product.findAll()
+  Product.findAll({
+    include: [Review, Category],
+  })
     .then(products => res.json(products))
     .catch(next);
 });
