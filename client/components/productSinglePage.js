@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { fetchProduct, addCartItemToDatabase, deleteReview } from '../store';
-import '../_productSinglePage.scss';
 import ReviewItem from './reviewItem';
 
+import '../css/_productSinglePage.scss';
 
 export class ProductSinglePage extends React.Component {
   constructor(props) {
@@ -31,7 +31,7 @@ export class ProductSinglePage extends React.Component {
       });
     })
   }
-  
+
   handleQuantityChange(e) {
     this.setState({ quantity: e.target.value });
   }
@@ -75,9 +75,9 @@ export class ProductSinglePage extends React.Component {
                       <ReviewItem review={review} isAdmin={isAdmin} removeReview={this.handleRemoveReview}/>
                     </div>
                   );
-                }) 
+                })
               }
-            </ul> 
+            </ul>
         </div>
         </div>
         <hr />
@@ -130,4 +130,4 @@ ProductSinglePage.propTypes = {
   selectedProduct: PropTypes.object,
   fetchProduct: PropTypes.func,
   removeReview: PropTypes.func,
-} 
+}

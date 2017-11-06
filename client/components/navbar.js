@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { logout, filterProductsInStore, me } from '../store';
 
+import '../css/_navbar.scss';
+
+
 export const Navbar = (props) => {
   const {
     products,

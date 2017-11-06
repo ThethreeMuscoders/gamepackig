@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteCart, updateCart, } from '../store';
 
+import '../css/_cart.scss';
+
 /**
  * COMPONENT
  */
