@@ -40,8 +40,11 @@
 
     }
     #product-form {
-      margin-top: 12px;
+      margin-top: inherit;
       margin-left: 12px;
+      form {
+        margin: inherit;
+      }
     }
 
   }

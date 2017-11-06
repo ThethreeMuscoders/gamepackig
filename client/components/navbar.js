@@ -14,7 +14,8 @@ export const Navbar = (props) => {
     handleClick,
     submitSearch,
     searchButton,
-    filterProducts
+    filterProducts,
+    isAdmin,
   } = props;
 
   return (
@@ -37,6 +38,12 @@ export const Navbar = (props) => {
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Sign Up</Link>
               </div>
+          }
+          {
+            isAdmin&&
+            <div>
+              <Link to='/admin'><i className="fa fa-id-card" aria-hidden="true"/>Admin</Link>
+            </div>
           }
           <div>
           <Link to="/cart"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
@@ -79,6 +86,7 @@ const mapState = (state) => {
     isLoggedIn: !!state.user.id,
     products: state.products,
     filteredProducts: state.filteredProducts,
+    isAdmin: state.user.isAdmin,
   };
 };
 
