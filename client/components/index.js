@@ -13,3 +13,4 @@ export { default as ProductSinglePage } from './productSinglePage';
 export { default as FilterSidebar } from './filterSidebar';
 export { default as Cart } from './cart';
 export { default as Checkout } from './checkout';
+export { default as Error } from './error';
