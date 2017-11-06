@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { filterProductsInStore } from '../store';
+import { withRouter, Link } from 'react-router-dom';
+import { filterProductsInStore } from '../../store';
 import { urlToProperty } from "query-string-params";
 
+import '../../css/_userSidebar.scss';
 /**
  * COMPONENT
  */
@@ -27,9 +28,9 @@ export class UserSidebar extends Component {
       <div className="filter-sidebar-wrapper">
         <h3>Account</h3>
 
-        <button>Change Info</button>
-        <button>Orders</button>
-        <button>Purchase History</button>
+        <button><Link to="/account/settings">Settings</Link></button>
+        <button><Link to="/account/orders">Orders</Link></button>
+        <button><Link to="/account/purchaseHistory">Purchase History</Link></button>
       </div>
     );
   }

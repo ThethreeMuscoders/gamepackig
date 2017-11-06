@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router-dom';
 import { logout, filterProductsInStore } from '../store';
 
+import '../css/_navbar.scss';
+
+
 export const Navbar = (props) => {
   const {
     products,
@@ -18,7 +21,7 @@ export const Navbar = (props) => {
     <div>
       <div className="nav">
         <div className="logo">
-          <img src="assets/gamepad.svg" alt="game controller icon" />
+          <img src="client/public/assets/gamepad.svg" alt="game controller icon" />
           <Link to="/home"><h1>gamepackig</h1></Link>
         </div>
         <nav>

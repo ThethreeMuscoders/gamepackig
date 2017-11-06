@@ -1,9 +1,4 @@
-
-@mixin box-shadow($a, $b, $c, $d, $color) {
-  -webkit-box-shadow: $a $b $c $d $color;
-     -moz-box-shadow: $a $b $c $d $color;
-      box-shadow: $a $b $c $d $color;
-}
+@import './_variables.scss';
 
 .product-single-page-wrapper {
   flex-basis: 100%;
@@ -12,7 +7,10 @@
   @include box-shadow(0px, 0px, 1px, 0px, #bbb);
   h1{
     margin-left: 2rem;
+    text-align: center;
+    font-size: 3.5rem;
   }
+  
   .product-description-container {
     display: flex;
     flex-wrap: wrap;
@@ -25,7 +23,7 @@
     }
     button {
       color: white;
-      background-color: #FF4848;
+      background-color: $gp-red;
       text-align: center;
       border: none;
       padding: 16px 12px;
@@ -40,17 +38,17 @@
       font-size: 21px;
       height: 48px;
       text-align: left;
-      border: 2px solid #363372;
+      border: 2px solid $gp-blue;
       border-radius: 12px;
-      
+
     }
     #product-form {
       margin-top: 12px;
       margin-left: 12px;
     }
-    
+
   }
-  
+
   .review-container {
     flex-basis: 96%;
   };
@@ -64,15 +62,15 @@
     }
     #rating-container{
       margin-left: 13px;
-      color: #FF4848;
+      color: $gp-red;
     }
   }
-  
+
   #userNameContainer {
     display: flex;
     align-items: center;
   }
-  
+
   #productDescription{
     flex-basis: 74%;
     padding-right: 1rem;

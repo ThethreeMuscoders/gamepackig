@@ -4,7 +4,22 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { Main, Login, Signup, UserHome, UserSidebar, ProductList, FilterSidebar, Cart, ProductSinglePage, HomePage  } from './components';
+import {
+  Main,
+  Login,
+  Signup,
+  HomePage,
+  ProductList,
+  FilterSidebar,
+  UserSidebar,
+  Cart,
+  ProductSinglePage,
+  Checkout,
+  UserSettings,
+  UserOrders,
+  UserAccount,
+} from './components';
+
 import { me, fetchAllProducts } from './store';
 
 /**
@@ -36,13 +51,22 @@ class Routes extends Component {
             {/* Displays our Login component as a fallback */}
             <Route path="/login" component={Login} />
           </Switch>
-          <Route exact path="/account" component={UserSidebar} />
-          <Route exact path="/account" component={UserHome} />
+          <Route path="/account" component={UserSidebar} />
+          <Route exact path="/account" component={UserAccount} />
+          <Route exact path="/account/settings" component={UserSettings} />
+          <Route exact path="/account/orders" component={UserOrders} />
+
           <Route exact path="/products" component={FilterSidebar} />
           <Route exact path="/products" component={ProductList} />
+          
+
+
+          
+
           <Route path='/products/:productId' component = {ProductSinglePage}/>
           <Route path="/cart" component={Cart} />
-        </Main>
+          <Route path="/checkout" component={Checkout} />
+          </Main>
       </Router>
     )
   }
