@@ -4,6 +4,17 @@ const { Cart, Product } = require('../db/models');
 
 module.exports = router;
 
+
+function axiosFetchProduct(cartItem) {
+  Product.findById(cartItem.productId)
+    .then(res => res.data)
+    .then((productInfo) => {
+      cartItem.product = productInfo;
+      return cartItem;
+    })
+    .catch(err => console.log(err))
+}
+
 // get a all carts from the session, though I don't think I'll be needing this one.
 router.get('/', (req, res, next) => {
 
@@ -33,6 +44,7 @@ router.post('/', ({ session, body }, res, next) => {
     if (!didSplice) {
       session.cart.push(newItem);
     }
+    session.cart.map(item => axiosFetchProduct(item))
     res.json(session.cart);
   }
 });

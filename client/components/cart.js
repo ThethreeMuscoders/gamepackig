@@ -22,7 +22,6 @@ export const Cart = (props) => {
   const tax = subtotal * 0.1025;
   const shipping = subtotal > 0 ? 8.95 * items : 0.00;
   const total = subtotal + tax + shipping;
-
   return (
     <div className="cart-wrapper">
       <div className="cart-list">
