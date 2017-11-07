@@ -13,7 +13,7 @@ const app = express()
 const socketio = require('socket.io')
 const { isAdmin } = require('./middleware/auth');
 module.exports = app
-
+const {PurchaseHistory } = require('./db/models')
 /**
  * In your development environment, you can keep all of your
  * app's secret API keys in a file called `secrets.js`, in your project
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') require('../secrets')
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
 passport.deserializeUser((id, done) =>
-  db.models.user.findById(id, { attributes: ['id', 'email', 'isAdmin', 'name', 'shippingAddress', 'billingAddress'] })
+  db.models.user.findById(id, { attributes: ['id', 'email', 'isAdmin', 'name', 'shippingAddress', 'billingAddress',], include: [PurchaseHistory] })
     .then(user => done(null, user))
     .catch(done))
 

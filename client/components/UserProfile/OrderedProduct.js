@@ -7,7 +7,7 @@ import '../../css/_orderedProduct.scss';
 function OrderedProduct(props) {
   const { user, cart, product, addItem, fetchHistory } = props;
   const { id, name, image, description, price } = product;
-
+  console.log(props, 'props');
 
   return (
     <div className='product-item'>

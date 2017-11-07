@@ -45,6 +45,7 @@ class UserSettings extends React.Component {
   }
   render() {
     const { products, user, updatingUser } = this.props;
+    console.log(user, 'user');
     return (
       <div className="user-settings-wrapper">
         <div className="settings-list">

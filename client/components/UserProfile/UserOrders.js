@@ -10,30 +10,50 @@ import '../../css/_userOrders.scss';
 /**
  * COMPONENT
  */
-export const UserOrders = (props) => {
-  const { products, fetchHistory } = props;
+class UserOrders extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userId: this.props.user.id,
+      purchaseHistory: this.props.purchaseHistory,
+    }
+  }
 
+  render() {
+  const { products, fetchHistory, user, purchaseHistory } = this.props;
+  //console.log(this.state.user.purchaseHistory[0].expectedDate, 'user');
+  // map on users purchaseHistory
+  // find a way to load product along with purchase history, eager load the product with purchase history,
+  //iterate through purchaseHistory list, render that component with purchase history
+  //purchaseHistory.map(orderedItem => {
+   const histories = user.purchaseHistories || []; 
+  console.log('the history', histories);
   return (
     <div className="product-list-wrapper">
       <div className="product-list">
         {
-          products.map(product =>
-            <OrderedProduct key={product.id} product={product} />)
+          histories.map(history => {
+            return <OrderedProduct key={history.id} product={history.id} />
+          })
+          // products.map(product =>
+          //   <OrderedProduct key={product.id} product={product} />)
         }
         
-
       </div>
     </div>
   );
 };
+}
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
   return {
+    user: state.user,
     products: state.filteredProducts,
     cart: state.cart,
+    purchaseHistory: state.purchaseHistory,
   };
 };
 
@@ -44,8 +64,17 @@ const mapState = (state) => {
 //     },
 //   }
 // }
+const mapDispatch = (dispatch) => {
+  return {
+    fetchHistory(id) {
+      console.log('userid', id)
+    const action = fetchSingleHistory(id);
+    dispatch(action)
+    },
+  };
+};
 
-export default connect(mapState)(UserOrders);
+export default connect(mapState, mapDispatch)(UserOrders);
 
 /**
  * PROP TYPES
