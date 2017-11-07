@@ -21,3 +21,4 @@ export { default as AdminProducts } from './adminProducts';
 export { default as AdminOrders } from './adminOrders';
 export { default as AdminEditUser } from './adminEditUser';
 export { default as AdminEditProduct } from './adminEditProduct';
+export { default as CheckoutSuccess } from './checkoutSuccess';
