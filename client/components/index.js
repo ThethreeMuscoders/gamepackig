@@ -12,3 +12,6 @@ export { default as ProductList } from './product-list';
 export { default as ProductSinglePage } from './productSinglePage';
 export { default as FilterSidebar } from './filterSidebar';
 export { default as Cart } from './cart';
+export { default as Checkout } from './checkout';
+export { default as CheckoutSuccess } from './checkoutSuccess';
+export { default as Error } from './error';

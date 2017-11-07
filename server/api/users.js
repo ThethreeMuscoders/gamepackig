@@ -3,7 +3,7 @@ const { User, Cart, PurchaseHistory } = require('../db/models');
 
 module.exports = router;
 
-const attributes = ['id', 'email', 'billingAddress', 'shippingAddress', 'isAdmin'];
+const attributes = ['id', 'name', 'email', 'billingAddress', 'shippingAddress', 'isAdmin'];
 
 // Gets finds userby id
 router.param('id', (req, res, next, id) => {

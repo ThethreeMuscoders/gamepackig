@@ -4,8 +4,20 @@ import { Router } from 'react-router';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import history from './history';
-import { Main, Login, Signup, UserHome, ProductList, FilterSidebar, Cart, ProductSinglePage  } from './components';
-import { me, fetchAllProducts } from './store';
+import {
+  Main,
+  Login,
+  Signup,
+  UserHome,
+  ProductList,
+  FilterSidebar,
+  Cart,
+  ProductSinglePage,
+  Checkout,
+  CheckoutSuccess,
+  Error,
+} from './components';
+import { me, fetchAllProducts, fetchAllCategories } from './store';
 
 /**
  * COMPONENT
@@ -39,7 +51,10 @@ class Routes extends Component {
           <Route exact path="/products" component={ProductList} />
           <Route path='/products/:productId' component = {ProductSinglePage}/>
           <Route path="/cart" component={Cart} />
-        </Main>
+          <Route path="/checkout" component={Checkout} />
+          <Route path="/successful-order" component={CheckoutSuccess} />
+          <Route path="/" component={Error} />
+          </Main>
       </Router>
     )
   }
@@ -61,6 +76,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData(userId) {
       dispatch(me());
       dispatch(fetchAllProducts());
+      dispatch(fetchAllCategories());
     },
   };
 };

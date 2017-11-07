@@ -29,9 +29,12 @@ Review.belongsTo(Product);
 PurchaseHistory.belongsTo(User);
 PurchaseHistory.belongsTo(Product);
 
+Product.belongsTo(Category);
 
 User.hasMany(Cart);
 User.hasMany(PurchaseHistory);
+
+Category.hasMany(Product);
 
 Product.hasMany(Review);
 
