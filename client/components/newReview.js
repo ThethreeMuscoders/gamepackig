@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Product from './product';
-
+import { withRouter} from 'react-router';
 import '../css/_newReview.scss';
 import { addReviewItemToDatabase } from '../store'
 
@@ -43,7 +43,7 @@ class NewReview extends React.Component {
                   <h4 className="testClass">Review</h4>
                   <textarea
                     className=""
-                    name="name"
+                    name="review"
                     type="text"
                     placeholder={
                       "What did you think?"
@@ -54,7 +54,7 @@ class NewReview extends React.Component {
 
               <div className="form-input">
                 <div className="input-area">
-                <select name="starSelector" onChange={e => this.setState({ stars: e.target.value })}>
+                <select name="stars" onChange={e => this.setState({ stars: e.target.value })}>
                 <option value="Rating" selected>Please select a rating</option>
                   <option key={1} value={1}>1</option>
                   <option key={2} value={2}>2</option>
@@ -98,18 +98,21 @@ const mapDispatch = (dispatch) => {
   return {
     leaveReview: function (id, e) {
       e.preventDefault();
-      const name = e.target.name.value
-      const email = e.target.email.value
-      const shippingAddress = e.target.shippingAddress.value
-      const billingAddress = e.target.billingAddress.value
+      // const name = e.target.name.value
+      // const email = e.target.email.value
+      // const shippingAddress = e.target.shippingAddress.value
+      // const billingAddress = e.target.billingAddress.value
+
+      const review = e.target.review.value;
+      const stars = e.target.stars.value;
 
 
-      dispatch(addReviewItemToDatabase(id, { rating, stars }))
+      dispatch(addReviewItemToDatabase(id, { review, stars }))
     },
   }
 }
 
-export default connect(mapState, mapDispatch)(NewReview);
+export default withRouter(connect(mapState, mapDispatch)(NewReview));
 
 /**
  * PROP TYPES

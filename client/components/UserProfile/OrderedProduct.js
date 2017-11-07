@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link } from 'react-router-dom';
+
 import { addCartItemToDatabase, fetchSingleHistory, fetchProduct } from '../../store';
 import '../../css/_orderedProduct.scss';
 
@@ -16,9 +17,11 @@ class OrderedProduct extends React.Component {
     this.props.getProduct(1);
   }
   render() {
-    const { user, cart, product, addItem, getProduct } = this.props;
+    //first need withRouter
+
+    const { user, cart, product, addItem, getProduct, productId } = this.props;
     // const { id, name, image, description, price } = product;
-    // console.log(product.productId, 'props');
+    console.log(this.props, 'props');
     console.log(this.state, 'the state');
     return (
       <div className='product-item'>
