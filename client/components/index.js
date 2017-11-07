@@ -8,7 +8,8 @@ export { default as HomePage} from './HomePage';
 export { default as UserAccount } from './UserProfile/UserAccount';
 export { default as UserSidebar} from './UserProfile/UserSidebar';
 export { default as UserSettings} from './UserProfile/UserSettings';
-export { default as UserOrders} from './UserProfile/UserOrders'
+export { default as UserOrders} from './UserProfile/UserOrders';
+export { default as OrderedProduct} from './UserProfile/OrderedProduct';
 export { Login } from './Login';
 export { Signup } from './Signup';
 export { default as Navbar } from './navbar';
@@ -18,3 +19,5 @@ export { default as FilterSidebar } from './filterSidebar';
 export { default as Cart } from './cart';
 export { default as Checkout } from './checkout';
 
+export { default as CheckoutSuccess } from './checkoutSuccess';
+export { default as ErrorForm } from './error';

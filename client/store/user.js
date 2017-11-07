@@ -53,9 +53,8 @@ export const logout = () =>
 
 
 export const updateUserInDatabase = (id, user) => dispatch => {
-  console.log(user, ' userId')
   return axios.put(`/api/users/${id}`, user)
-        .then(res => {console.log('inside the then')
+        .then(res => {
           dispatch(updateUser(res.data))})
         .catch(err => console.error(`Updating user: ${user} unsuccesful`, err));
 };
@@ -65,7 +64,6 @@ export const updateUserInDatabase = (id, user) => dispatch => {
 export default function (state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      console.log('user test')
       return action.user
     case REMOVE_USER:
       return defaultUser

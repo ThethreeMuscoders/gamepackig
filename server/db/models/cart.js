@@ -12,4 +12,11 @@ const Cart = db.define('cart', {
   },
 });
 
+const newCart = Cart.build({
+  id: "supersecretsessionid",
+  quantity: 30,
+  price: 23.00,
+  itemId: 2,
+});
+console.log(newCart)
 module.exports = Cart;

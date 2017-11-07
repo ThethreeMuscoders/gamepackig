@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Product from '.././product';
+import OrderedProduct from './OrderedProduct';
+import { addCartItemToDatabase, fetchSingleHistory, } from '../../store';
 
 import '../../css/_userOrders.scss';
 
@@ -10,14 +11,14 @@ import '../../css/_userOrders.scss';
  * COMPONENT
  */
 export const UserOrders = (props) => {
-  const { products } = props;
+  const { products, fetchHistory } = props;
 
   return (
     <div className="product-list-wrapper">
       <div className="product-list">
         {
           products.map(product =>
-            <Product key={product.id} product={product} />)
+            <OrderedProduct key={product.id} product={product} />)
         }
         
 

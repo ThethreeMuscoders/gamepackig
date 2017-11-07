@@ -1,0 +1,54 @@
+@import './_variables.scss';
+
+.error-wrapper {
+  position: fixed;
+  background: $gp-red;
+  opacity: 0.95;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+}
+
+.error {
+  position: fixed;
+  width: 50vw;
+  height: 50vh;
+  top: calc(50vh / 2);
+  left: calc(50vw / 2);
+  background: white;
+  z-index: 10;
+
+  .fa-times {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 4rem;
+    color: $gp-red;
+  }
+
+  .fa-times:hover {
+    color: $gp-blue;
+  }
+
+  > div {
+    @include flex-center();
+    flex-direction: column;
+    height: calc(50vh - 2rem);
+    margin: 1rem;
+    @include box-shadow(0px, 0px, 1px, 0px, #777);
+
+    h2 {
+      font-size: 2.5em;
+      color: $gp-blue;
+      padding-bottom: 1em;
+      border-bottom: 1px solid $gp-blue;
+    }
+
+    p {
+      font-size: 2em;
+      color: $gp-blue;
+    }
+  }
+}

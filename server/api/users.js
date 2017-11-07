@@ -48,7 +48,6 @@ router.get('/:id', (req, res, next) => {
 // Update user
 router.put('/:id', isUser, (req, res, next) => {
   let userId = req.params.id
-  console.log(req.body, 'console.req.body')
   User.update(req.body, {
     where: {
       id: userId

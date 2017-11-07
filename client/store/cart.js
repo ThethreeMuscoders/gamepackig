@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { errorState } from './';
 // Actions
 const GET_ALL_CARTS = 'GET_ALL_CARTS';
 const GET_SINGLE_CART = 'GET_SINGLE_CART';
@@ -92,8 +92,12 @@ export const updateCart = (cartId, body) => (dispatch) => {
 };
 
 export const addCartItemToDatabase = cartItem => (dispatch) => {
-
-  return axios.get(`/api/carts/${cartItem.userId}/${cartItem.productId}`)
+//Have the if statement  checking whether the user Id is a string or a number
+//if its a number, build a new cart, filter through each to see if they have the same
+//if they are, then add the new one's quantity to the old one, discard the new one.
+//if there's no match, push that item to the session and dispatch updateCartInStore with 
+//the cart array in sessions. NOTE This is going to have to be done in the router in order to have access to the req.session.
+  return axios.get(`/api/carts/${cartItem.userId}/${cartItem.productId}`) // this is where the magic happens <<<
     .then((res) => {
       if (res.data) {
         res.data.quantity += cartItem.quantity;
@@ -104,7 +108,7 @@ export const addCartItemToDatabase = cartItem => (dispatch) => {
       return axios.post('/api/carts/', cartItem)
         .then(postRes => dispatch(addCartToStore(postRes.data[0])));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const deleteCart = cartId => (dispatch) => {
