@@ -11,6 +11,7 @@ export const Navbar = (props) => {
   const {
     products,
     isLoggedIn,
+    isAdmin,
     handleClick,
     submitSearch,
     searchButton,
@@ -27,19 +28,29 @@ export const Navbar = (props) => {
         <nav>
           {
             isLoggedIn
-              ? <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
-                <a href="#" onClick={handleClick}>Logout</a>
-              </div>
-              : <div>
+              ? isAdmin
+                ?
+                <div>
+                  {/* The navbar will show these links after you log in if you're an admin */}
+                  <Link to="/home">Home</Link>
+                  <Link to="/admin">Admin Dashboard</Link>
+                  <a href="#" onClick={handleClick}>Logout</a>
+                </div>
+                :
+                <div>
+                  {/* The navbar will show these links after you log in if you're not an admin*/}
+                  <Link to="/home">Home</Link>
+                  <a href="#" onClick={handleClick}>Logout</a>
+                </div>
+              :
+              <div>
                 {/* The navbar will show these links before you log in */}
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Sign Up</Link>
               </div>
           }
           <div>
-          <Link to="/cart"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
+            <Link to="/cart"><i className="fa fa-shopping-cart" aria-hidden="true"></i>Cart
           </Link>
           </div>
         </nav>
@@ -58,11 +69,11 @@ export const Navbar = (props) => {
             onKeyPress={e => submitSearch(e, products, filterProducts, searchButton)}
           />
           <datalist id="auto-fill-products">
-          {
-            products.map(product => (
-              <option key={product.id} value={product.name}></option>
-            ))
-          }
+            {
+              products.map(product => (
+                <option key={product.id} value={product.name}></option>
+              ))
+            }
           </datalist>
           <button onClick={e => searchButton(products, filterProducts)}>Search</button>
         </div>
@@ -77,6 +88,7 @@ export const Navbar = (props) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin,
     products: state.products,
     filteredProducts: state.filteredProducts,
   };
@@ -107,14 +119,14 @@ const mapDispatch = (dispatch, ownProps) => {
   };
 };
 
-  // The `withRouter` wrapper makes sure that updates are not blocked
-  // when the url changes
-  export default withRouter(connect(mapState, mapDispatch)(Navbar));
+// The `withRouter` wrapper makes sure that updates are not blocked
+// when the url changes
+export default withRouter(connect(mapState, mapDispatch)(Navbar));
 
-  /**
-   * PROP TYPES
-   */
-  Navbar.propTypes = {
-    handleClick: PropTypes.func.isRequired,
-    isLoggedIn: PropTypes.bool.isRequired,
-  };
+/**
+ * PROP TYPES
+ */
+Navbar.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired,
+};

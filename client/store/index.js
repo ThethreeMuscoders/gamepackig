@@ -11,6 +11,9 @@ import reviews from './review';
 import purchaseHistory from './purchaseHistory';
 import categories from './categories';
 import error from './error';
+import adminUsers from './adminUsers';
+import adminSelectedUser from './adminSelectedUser';
+import adminSelectedProduct from './adminSelectedProduct';
 
 const reducer = combineReducers({
   user,
@@ -22,6 +25,9 @@ const reducer = combineReducers({
   purchaseHistory,
   categories,
   error,
+  adminUsers,
+  adminSelectedUser,
+  adminSelectedProduct,
 });
 
 const middleware = composeWithDevTools(applyMiddleware(
@@ -41,3 +47,6 @@ export * from './review';
 export * from './purchaseHistory';
 export * from './categories';
 export * from './error';
+export * from './adminUsers';
+export * from './adminSelectedUser';
+export * from './adminSelectedProduct';

@@ -1,0 +1,206 @@
+@import './_variables.scss';
+
+.admin-dash-wrapper {
+  display: flex;
+  margin: 1em;
+  width: calc(100vw - 2em);
+  height: calc(100vh - 16em);
+  @include box-shadow(0px, 0px, 1px, 0px, #bbb);
+}
+
+.admin-sidebar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0.5em;
+  padding: 2em;
+  flex-basis: 25%;
+  height: calc(100% - 5em);
+  @include box-shadow(0px, 0px, 1px, 0px, #777);
+  overflow: scroll;
+  font-size: 2em;
+
+  h3 {
+    text-align: center;
+    color: $gp-blue;
+    font-size: 1.2em;
+    padding-bottom: 1em;
+    margin: 1em 1em;
+    border-bottom: 1px solid $gp-red;
+    width: 100%;
+  }
+
+  a {
+    font-size: 1em;
+    background: $gp-red;
+    border-radius: 5px;
+    color: white;
+    margin: 1em 0;
+    text-align: center;
+    padding: 0.5em;
+    width: calc(100% - 0.2em);
+  }
+
+  a:hover {
+    background: $gp-blue;
+  }
+
+  .sidebar-back-btn {
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    a {
+      font-size: 1.5em;
+      color: $gp-red;
+      background: none;
+    }
+
+    a:hover {
+      color: $gp-red / 1.1;
+    }
+  }
+
+  .input-row {
+    display: flex;
+    width: 100%;
+    margin: 0.8em 0;
+
+    label:nth-child(1) {
+      flex-basis: 20%;
+      margin-right: 1em;
+    }
+
+    label:nth-child(n+2) {
+      margin-left: 1em;
+    font-size: 0.8em;
+    }
+
+    input,
+    textarea {
+      padding: 0.5em;
+      font-size: 0.8em;
+      flex-basis: 80%;
+    }
+
+    input {
+      height: 1.2em;
+    }
+  }
+
+  .description-row {
+    display: flex;
+    flex-direction: column;
+    label {
+      flex-basis: 100%;
+      margin-bottom: 0.5em;
+    }
+
+    textarea {
+      flex-basis: 100%;
+    }
+  }
+
+  button {
+    font-size: 0.8em;
+    background: $gp-red;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin: 1em 0;
+    text-align: center;
+    padding: 0.5em;
+    width: calc(100% - 0.2em);
+  }
+
+  button:hover {
+    background: $gp-blue;
+  }
+}
+
+.admin-main {
+  margin: 1em;
+  flex-basis: 75%;
+  height: calc(100% - 2em);
+  @include box-shadow(0px, 0px, 1px, 0px, #777);
+  overflow: scroll;
+}
+
+table {
+  margin: 2em 3em;
+  width: calc(100% - 6em);
+  font-size: 1.5em;
+  border-collapse: collapse;
+  text-align: center;
+
+  tr {
+    line-height: 3em;
+    color: #222;
+    border-bottom: 1px solid #ddd;
+  }
+
+  tr:nth-child(even) {
+    background: rgb(246, 246, 246);
+  }
+
+  tr:nth-child(even):hover {
+    background: $gp-blue * 4;
+
+    .fa-times {
+      opacity: 0.8;
+    }
+
+    .fa-pencil {
+      opacity: 0.8;
+    }
+  }
+
+  tr:nth-child(odd):hover {
+    background: $gp-red * 3;
+
+    .fa-times {
+      opacity: 0.8;
+    }
+
+    .fa-pencil {
+      opacity: 0.8;
+    }
+  }
+
+  thead {
+    border-bottom: 2px solid $gp-blue;
+
+  }
+
+  a {
+    color: #222;
+  }
+
+  a:hover {
+    color: $gp-red;
+  }
+
+  button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+
+    .fa-times {
+      color: $gp-red;
+      opacity: 0.2;
+    }
+
+    .fa-times:hover {
+      opacity: 1;
+    }
+
+    .fa-pencil {
+      color: $gp-blue;
+      opacity: 0.2;
+    }
+
+    .fa-pencil:hover {
+      opacity: 1;
+    }
+  }
+}
