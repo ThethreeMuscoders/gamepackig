@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addHistoryItemToDatabase } from '../store';
+import { addHistoryItemToDatabase, deleteCart } from '../store';
 
 import '../css/_checkout.scss';
 
@@ -10,7 +10,7 @@ import '../css/_checkout.scss';
  * COMPONENT
  */
 export const Checkout = (props) => {
-  const { user, cart, submitCheckout } = props;
+  const { user, cart, submitCheckout, sendEmail } = props;
   const { name, email, billingAddress, shippingAddress } = user;
   let subtotal = 0.00;
   let items = 0;
@@ -47,7 +47,10 @@ export const Checkout = (props) => {
         <div className="title">
           <h3>Checkout Details</h3>
         </div>
-        <form onSubmit={e => submitCheckout(e, cart)}>
+        <form onSubmit={(e) => {
+          submitCheckout(e, cart);
+          sendEmail(user, subtotal, tax, shipping, total);
+        }}>
 
           <label>Contact Details</label>
           <div className="user-section">
@@ -107,7 +110,7 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     submitCheckout(e, cart) {
       e.preventDefault();
@@ -132,7 +135,28 @@ const mapDispatch = (dispatch) => {
         };
         const action = addHistoryItemToDatabase(historyItem);
         dispatch(action);
+        const action2 = deleteCart(item.id);
+        dispatch(action2);
       });
+    },
+    sendEmail({ name, email, shippingAddress }, subtotal, tax, shippingCost, total) {
+      const serviceId = "default_service";
+      const templateId = "gamepackig-confirm-order";
+      const emailParams = {
+        name,
+        email: 'damian.apiconfig@gmail.com' || email,
+        shippingAddress,
+        subtotal,
+        tax,
+        shippingCost,
+        total,
+      };
+
+      emailjs.send(serviceId, templateId, emailParams)
+        .then(() => console.log('Sent'))
+        .catch(console.error);
+
+      ownProps.push('/successful-order');
     },
   };
 };

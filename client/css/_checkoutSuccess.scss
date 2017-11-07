@@ -1,0 +1,46 @@
+@import './_variables.scss';
+
+.checkout-success-wrapper {
+  position: fixed;
+  background: $gp-blue;
+  opacity: 0.9;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+
+}
+
+.checkout-success {
+  position: fixed;
+  width: 50vw;
+  height: 50vh;
+  top: calc(50vh / 2);
+  left: calc(50vw / 2);
+  background: white;
+
+  .fa-times {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 4rem;
+    color: $gp-red;
+  }
+
+  .fa-times:hover {
+    color: $gp-blue;
+  }
+
+  > div {
+    @include flex-center();
+    height: calc(50vh - 2rem);
+    margin: 1rem;
+    @include box-shadow(0px, 0px, 1px, 0px, #777);
+
+    h2 {
+      font-size: 4rem;
+      color: $gp-blue;
+      border-bottom: 1px solid $gp-blue;
+    }
+  }
+}

@@ -14,8 +14,10 @@ import {
   Cart,
   ProductSinglePage,
   Checkout,
+  CheckoutSuccess,
+  Error,
 } from './components';
-import { me, fetchAllProducts } from './store';
+import { me, fetchAllProducts, fetchAllCategories } from './store';
 
 /**
  * COMPONENT
@@ -50,6 +52,8 @@ class Routes extends Component {
           <Route path='/products/:productId' component = {ProductSinglePage}/>
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
+          <Route path="/successful-order" component={CheckoutSuccess} />
+          <Route path="/" component={Error} />
           </Main>
       </Router>
     )
@@ -72,6 +76,7 @@ const mapDispatch = (dispatch) => {
     loadInitialData(userId) {
       dispatch(me());
       dispatch(fetchAllProducts());
+      dispatch(fetchAllCategories());
     },
   };
 };
