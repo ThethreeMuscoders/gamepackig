@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { deleteProduct } from '../store';
 
 import '../css/_adminDashboard.scss';
 
@@ -9,7 +10,7 @@ import '../css/_adminDashboard.scss';
  * COMPONENT
  */
 export const AdminProducts = (props) => {
-  const { products } = props;
+  const { products, submitDeleteProduct } = props;
 
   return (
     <div className="admin-main">
@@ -42,7 +43,7 @@ export const AdminProducts = (props) => {
                 <tr key={id}>
 
                   <td>
-                    <button className="delete-btn">
+                    <button className="delete-btn" onClick={() => submitDeleteProduct(id)}>
                       <i className="fa fa-times" />
                     </button>
                     <Link to={`/admin/products/${id}`}>
@@ -110,7 +111,14 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-
+    submitDeleteProduct(id) {
+      const confirmation = confirm(`Are you sure you want to delete product id #${id}`);
+      confirmation && dispatch(deleteProduct(id))
+        .then(() => {
+          alert(`Deleted product id: ${id}`);
+          ownProps.history.push('/admin/products/')
+        })
+    },
   };
 };
 

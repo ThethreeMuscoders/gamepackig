@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorState } from './';
 
 // Actions
 const SELECT_PRODUCT = 'SELECT_PRODUCT';
@@ -30,5 +31,7 @@ export const fetchOneProduct = (id) => (dispatch) => {
       dispatch(selectProduct(res.data));
       return res.data;
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
+
+

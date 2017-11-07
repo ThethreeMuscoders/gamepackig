@@ -53,15 +53,10 @@ class Routes extends Component {
           <Route path='/products/:productId' component={ProductSinglePage} />
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
-<<<<<<< HEAD
           <Route path="/admin" component={AdminDashboard} />
-          <Route path="/" component={ErrorForm} />
-        </Main>
-=======
           <Route path="/successful-order" component={CheckoutSuccess} />
-          <Route path="/" component={Error} />
+          <Route path="/" component={ErrorForm} />
           </Main>
->>>>>>> master
       </Router>
     )
   }

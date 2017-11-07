@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { fetchAllUsers, errorState } from './';
 
 // Actions
 const SELECT_USER = 'SELECT_USER';
@@ -30,5 +31,23 @@ export const fetchOneUser = (id) => (dispatch) => {
       dispatch(selectUser(res.data));
       return res.data;
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
+};
+
+export const updateUser = (id, body) => (dispatch) => {
+  return axios.put(`/api/users/${id}`, body)
+    .then(res => {
+      dispatch(selectUser(res.data));
+      dispatch(fetchAllUsers());
+    })
+    .catch(err => dispatch(errorState(err)));
+};
+
+export const deleteUser = (id) => (dispatch) => {
+  return axios.delete(`/api/users/${id}`)
+    .then(res => {
+      dispatch(selectUser({}));
+      dispatch(fetchAllUsers());
+    })
+    .catch(err => dispatch(errorState(err)));
 };

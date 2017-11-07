@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorState } from './';
 
 // Action
 const GET_PRODUCT = 'GET_PRODUCT';
@@ -12,7 +13,7 @@ export const getProduct = (product) => {
   };
 };
 
-// Reducer 
+// Reducer
 
 const reducerMethods = {
   GET_PRODUCT(state, action) {
@@ -31,5 +32,5 @@ export default function (state = {}, action) {
 export const fetchProduct = productId => (dispatch) => {
   return axios.get(`/api/products/${productId}`)
     .then(res => dispatch(getProduct(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 }

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorState } from './';
 
 // Actions
 
@@ -52,17 +53,17 @@ export default function (state = [], action) {
 export const fetchAllCategories = () => (dispatch) => {
   return axios.get('/api/category/')
     .then(res => dispatch(getAllCategories(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const postCategoryToDb = category => (dispatch) => {
   return axios.post('/api/category/', category)
     .then(res => dispatch(addCategory(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const deleteCategoryFromDb = categoryId => (dispatch) => {
   return axios.delete(`/api/category/${categoryId}`)
     .then(res => dispatch(deleteCategory(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };

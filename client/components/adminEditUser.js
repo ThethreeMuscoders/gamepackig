@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { fetchOneUser } from '../store';
+import { fetchOneUser, updateUser, deleteUser } from '../store';
 
 import '../css/_adminDashboard.scss';
 
@@ -38,6 +38,8 @@ export class AdminEditUser extends Component {
 
   render() {
     const { name, email, billingAddress, shippingAddress } = this.state;
+    const { submitChanges, submitDeleteUser } = this.props;
+    const userId = this.props.match.params.userId;
 
     return (
       <div className="admin-sidebar">
@@ -81,7 +83,8 @@ export class AdminEditUser extends Component {
           // </div>
         }
 
-        <button>Submit Changes</button>
+        <button onClick={() => submitChanges(userId, this.state)}>Submit Changes</button>
+        <button onClick={() => submitDeleteUser(userId)}>DELETE USER</button>
 
       </div>
     );
@@ -101,12 +104,26 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     loadUser(id, mySelf) {
       dispatch(fetchOneUser(id))
         .then(user => mySelf.setState(user))
         .catch(console.error);
+    },
+    submitChanges(id, state) {
+      dispatch(updateUser(id, state))
+        .then(() => {
+          alert(`Updated user id: ${id}`)
+        })
+    },
+    submitDeleteUser(id) {
+      const confirmation = confirm(`Are you sure you want to delete user id #${id}`);
+      confirmation && dispatch(deleteUser(id))
+        .then(() => {
+          alert(`Deleted user id: ${id}`);
+          ownProps.history.push('/admin/users/')
+        })
     },
   };
 };

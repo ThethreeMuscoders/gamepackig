@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorState } from './';
 
 // Actions
 const GET_ALL_USERS = 'GET_ALL_USERS';
@@ -27,5 +28,5 @@ export default function (state = [], action) {
 export const fetchAllUsers = () => (dispatch) => {
   return axios.get('/api/users/')
     .then(res => dispatch(getAllUsers(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };

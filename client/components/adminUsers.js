@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { deleteUser } from '../store';
 
 import '../css/_adminDashboard.scss';
 
@@ -9,7 +10,7 @@ import '../css/_adminDashboard.scss';
  * COMPONENT
  */
 export const AdminUsers = (props) => {
-  const { user, adminUsers } = props;
+  const { user, adminUsers, submitDeleteUser } = props;
 
   return (
     <div className="admin-main">
@@ -38,7 +39,7 @@ export const AdminUsers = (props) => {
                 <tr key={id}>
 
                   <td>
-                    <button className="delete-btn">
+                    <button className="delete-btn" onClick={() => submitDeleteUser(id)}>
                       <i className="fa fa-times" />
                     </button>
                     <Link to={`/admin/users/${id}`}>
@@ -99,7 +100,14 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-
+    submitDeleteUser(id) {
+      const confirmation = confirm(`Are you sure you want to delete user id #${id}`);
+      confirmation && dispatch(deleteUser(id))
+        .then(() => {
+          alert(`Deleted user id: ${id}`);
+          ownProps.history.push('/admin/users/')
+        })
+    },
   };
 };
 

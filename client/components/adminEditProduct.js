@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router';
 import PropTypes from 'prop-types';
-import { fetchOneProduct } from '../store';
+import { fetchOneProduct, deleteProduct, updateProduct } from '../store';
 
 import '../css/_adminDashboard.scss';
 
@@ -40,6 +40,8 @@ export class AdminEditProduct extends Component {
 
   render() {
     const { name, description, image, price, quantity, category } = this.state;
+    const { submitDeleteProduct, submitChanges } = this.props;
+    const productId = this.props.match.params.productId;
 
     return (
       <div className="admin-sidebar">
@@ -79,7 +81,8 @@ export class AdminEditProduct extends Component {
           <input name="category" type="text" value={category} onChange={this.changeField} />
         </div>
 
-        <button>Submit Changes</button>
+        <button onClick={() => submitChanges(productId, this.state)}>Submit Changes</button>
+        <button onClick={() => submitDeleteProduct(productId)}>DELETE PRODUCT</button>
 
       </div>
     );
@@ -99,7 +102,7 @@ const mapState = (state) => {
   };
 };
 
-const mapDispatch = (dispatch) => {
+const mapDispatch = (dispatch, ownProps) => {
   return {
     loadUser(id, mySelf) {
       dispatch(fetchOneProduct(id))
@@ -108,6 +111,20 @@ const mapDispatch = (dispatch) => {
           mySelf.setState(product)
         })
         .catch(console.error);
+    },
+    submitChanges(id, state) {
+      dispatch(updateProduct(id, state))
+        .then(() => {
+          alert(`Updated product id: ${id}`)
+        })
+    },
+    submitDeleteProduct(id) {
+      const confirmation = confirm(`Are you sure you want to delete product id #${id}`);
+      confirmation && dispatch(deleteProduct(id))
+        .then(() => {
+          alert(`Deleted product id: ${id}`);
+          ownProps.history.push('/admin/products/')
+        })
     },
   };
 };
