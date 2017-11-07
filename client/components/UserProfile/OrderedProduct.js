@@ -1,61 +1,67 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { addCartItemToDatabase, fetchSingleHistory, } from '../../store';
+import { addCartItemToDatabase, fetchSingleHistory, fetchProduct } from '../../store';
 import '../../css/_orderedProduct.scss';
 
-function OrderedProduct(props) {
-  const { user, cart, product, addItem, fetchHistory } = props;
-  const { id, name, image, description, price } = product;
-  console.log(props, 'props');
+class OrderedProduct extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      product: this.props.product
+    }
+  }
 
-  return (
-    <div className='product-item'>
-    <div className='TopSection'>
-    <h1>Ordered</h1>
-    <h2>11/29</h2>
-    </div>
+  componentDidMount() {
+    this.props.getProduct(1);
+  }
+  render() {
+    const { user, cart, product, addItem, getProduct } = this.props;
+    // const { id, name, image, description, price } = product;
+    // console.log(product.productId, 'props');
+    console.log(this.state, 'the state');
+    return (
+      <div className='product-item'>
+        <div className='TopSection'>
+          <h1>Ordered</h1>
+          <h2>11/29</h2>
+        </div>
 
-      <div className="img-wrapper">
+        <div className="img-wrapper">
           <div>
-          <NavLink to={`/products/${id}`}>
-            <img alt={`${name} product`} src={image} />
-          </NavLink>
+            <NavLink to={`/products/${1}`}>
+              <img alt={`${'1'} product`} src={'1'} />
+            </NavLink>
+          </div>
+        </div>
+
+        <div className="description-wrapper">
+          <span>{'1'}</span>
+          <h4>${'1'}</h4>
+        </div>
+
+        <div className="info-wrapper">
+          <div className="btns">
+            <button>Write Review</button>
+          </div>
         </div>
       </div>
-
-      <div className="description-wrapper">
-        <span>{name}</span>
-        <h4>${price}</h4>
-      </div>
-
-      <div className="info-wrapper">
-        <div className="btns">
-          <button onClick={() => addItem(user, product)}>Write Review</button>
-        </div>
-      </div>
-    </div>
-  );
+    );
+  }
 }
-
 const mapState = (state) => {
   return {
     cart: state.cart,
     user: state.user,
     history: state.history,
+    product: state.product
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    addItem(user, { price, id }) {
-      let item = {
-        price,
-        quantity: 1,
-        productId: id,
-        userId: user.id,
-      };
-      const action = addCartItemToDatabase(item);
+    getProduct(id) {
+      const action = fetchProduct(id);
       dispatch(action);
     },
   };

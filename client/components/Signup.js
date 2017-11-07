@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
 
+import '../css/_signup.scss';
 /**
  * COMPONENT
  */
@@ -11,7 +12,7 @@ const AuthForm = (props) => {
   const {name, displayName, handleSubmit, error} = props
 
   return (
-    <div>
+    <div className="loginClass">
       <form onSubmit={handleSubmit} name={name}>
         <div>
           <label htmlFor="email"><small>Email</small></label>
@@ -21,12 +22,14 @@ const AuthForm = (props) => {
           <label htmlFor="password"><small>Password</small></label>
           <input name="password" type="password" />
         </div>
-        <div>
+        <div className="SubmitButton">
           <button type="submit">{displayName}</button>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
+      <div className="googleLoginButton">
       <a href="/auth/google">{displayName} with Google</a>
+      </div>
     </div>
   )
 }

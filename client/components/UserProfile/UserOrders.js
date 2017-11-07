@@ -33,7 +33,7 @@ class UserOrders extends React.Component {
       <div className="product-list">
         {
           histories.map(history => {
-            return <OrderedProduct key={history.id} product={history.id} />
+            return <OrderedProduct key={history.id} product={history} />
           })
           // products.map(product =>
           //   <OrderedProduct key={product.id} product={product} />)
