@@ -108,6 +108,7 @@ const mapDispatch = (dispatch, ownProps) => {
         productId: id,
         userId: user.id,
       };
+      //NOTE this should have an option for guests
       const action = addCartItemToDatabase(item);
       dispatch(action);
       ownProps.history.push("/cart/");

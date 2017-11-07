@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { isAdmin } = require('../middleware/auth')
+const { isAdmin } = require('../middleware/auth');
 module.exports = router
 
 router.use('/carts', require('./cart'));

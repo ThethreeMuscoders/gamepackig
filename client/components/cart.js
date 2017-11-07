@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteCart, updateCart } from '../store';
+import { deleteCart, updateCart, } from '../store';
 
 import '../css/_cart.scss';
 
@@ -88,5 +88,5 @@ export default connect(mapState, mapDispatch)(Cart);
  * PROP TYPES
  */
 Cart.propTypes = {
-
+  fetchGuestCart: PropTypes.func,
 };

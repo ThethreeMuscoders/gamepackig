@@ -39,8 +39,14 @@ export const auth = (email, password, method) =>
   dispatch =>
     axios.post(`/auth/${method}`, { email, password })
       .then((res) => {
+        // I will have the user at this point
+        // Dispatch, get all of this users carts if any.
+        // Dispatch a filter that updates the real carts' item quantity with that of the sesssion. 
+        // Delete that session cart and add replace it with an empty array.
+        // At this point all of the user's carts will be updated and get user can be dispatched.
+        console.log(method, "This Method")
         dispatch(getUser(res.data));
-        history.push('/home');
+        history.push('/home'); //this will cause nothing
       })
       .catch(error =>
         dispatch(getUser({ error })));

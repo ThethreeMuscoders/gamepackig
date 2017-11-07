@@ -1,5 +1,18 @@
 import axios from 'axios';
 import { errorState } from './';
+
+// Fetches product information for the session cartItem
+function axiosFetchProduct(cartItem) {
+  axios.get(`/api/products/${cartItem.productId}`)
+    .then(res => res.data)
+    .then((productInfo) => {
+      cartItem.product = productInfo;
+      // console.log("got product info", cartItem)
+    })
+    .catch(err => console.log(err))
+  return cartItem;
+};
+
 // Actions
 const GET_ALL_CARTS = 'GET_ALL_CARTS';
 const GET_SINGLE_CART = 'GET_SINGLE_CART';
@@ -84,11 +97,6 @@ export const fetchSingleCart = userId => (dispatch) => {
     .catch(err => console.log(err));
 };
 
-// Guest Thunk to 'create' single cart
-export const fetchGuestCart = guestUser => (dispatch) => {
-  dispatch(getSingleCart(guestUser.cart));
-};
-
 export const updateCart = (cartId, body) => (dispatch) => {
   return axios.put(`/api/carts/${cartId}`, body)
     .then(res => dispatch(updateCartInStore(res.data)))
@@ -115,29 +123,39 @@ export const addCartItemToDatabase = cartItem => (dispatch) => {
     .catch(err => dispatch(errorState(err)));
 };
 
-export const addCartItemToGuestSession = cartItem => (dispatch) => {
-  axios.post('/api/guestCart', cartItem)
-    .then(res => res.data)
-    .then(cart => console.log(cart, "here"))
-    .catch(err => console.log(err));
-};
-
 export const deleteCart = cartId => (dispatch) => {
   return axios.delete(`/api/carts/${cartId}`)
     .then(() => dispatch(deleteCartFromStore(cartId)))
     .catch(err => console.log(err));
 };
 
-// Fetches product information for the session cartItem
-// const axiosFetchProduct = (productId) => {
-  //   axios.get(`/api/products/${productId}`)
-  //   .then(res => res.data)
-  //   .catch(err => console.log(err))
-  // }
-// guestUser.cart.map((cart) => {
-//   if (cart.productId === cartItem.productId) {
-//     cart.quantity += cartItem.quantity;
-//   }
-//   return cart;
-// });
-// dispatch(addCartToStore(guestUser.cart))
+
+// GuestUser Cart Thunks......
+
+// The Session cart object was created before this, all this does is gets the product info of each item.
+// and sets that to the store 
+export const fetchGuestCart = guestUser => (dispatch) => {
+  const cartWithProducts = guestUser.cart.map(item => axiosFetchProduct(item))
+  console.log('fetchGuestCart', cartWithProducts);
+  dispatch(getSingleCart(cartWithProducts));
+};
+
+// This thunl persists the new cartItem to the session ..
+export const addCartItemToGuestSession = cartItem => (dispatch) => {
+  axios.post('/api/guestCart', cartItem) // This route has the logic to filter repeated cartItems and combines their quantity
+    .then(res => res.data)
+    .then((cart) => {
+      const cartWithProducts = cart.map(item => axiosFetchProduct(item)); // This fetches the productInfo for every cart item in the session.
+      console.log("addCartItemToGuestSession", cart);
+      dispatch(getSingleCart(cartWithProducts));// Sets It to the store.
+    })
+    .catch(err => console.log(err));
+};
+
+// Delete Guest Cart
+// export const deleteCartFromGuestSession = cartItem => (dispatch) => {
+//   axios.delete('/api/guestCart')
+//   .then((res) => res.data)
+//   .then(cart => console.log('Here', cart))
+//   .catch(err => console.log)
+// };
