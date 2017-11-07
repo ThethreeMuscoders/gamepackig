@@ -30,7 +30,6 @@ export class UserSidebar extends Component {
 
         <button><Link to="/account/settings">Settings</Link></button>
         <button><Link to="/account/orders">Orders</Link></button>
-        <button><Link to="/account/purchaseHistory">Purchase History</Link></button>
       </div>
     );
   }

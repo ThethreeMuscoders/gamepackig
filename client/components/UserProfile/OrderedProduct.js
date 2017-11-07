@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { addCartItemToDatabase, fetchSingleHistory, fetchProduct } from '../../store';
 import '../../css/_orderedProduct.scss';
 
@@ -42,7 +42,8 @@ class OrderedProduct extends React.Component {
 
         <div className="info-wrapper">
           <div className="btns">
-            <button>Write Review</button>
+            <button><Link to={`/newReview/${1}`}>Write Review</Link></button>
+            <Link to="/account/orders">Orders</Link>
           </div>
         </div>
       </div>

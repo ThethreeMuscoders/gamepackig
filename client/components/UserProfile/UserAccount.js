@@ -7,14 +7,15 @@ import '../../css/_userAccount.scss';
  * COMPONENT
  */
 export const UserAccount = (props) => {
-  const { email } = props
+  const { email, name } = props
 
   return (
     <div className='user-editInfo-wrapper'>
       
 
       <div className="user-editInfo-wrapper">
-      <h3>Your Account, {email}</h3>
+      <h3>Welcome to your account, {name || email}</h3>
+      <h3>Please select an option on the left</h3>
       </div>
     </div>
   )
@@ -25,7 +26,8 @@ export const UserAccount = (props) => {
  */
 const mapState = (state) => {
   return {
-    email: state.user.email
+    email: state.user.email,
+    name: state.user.name
   }
 }
 

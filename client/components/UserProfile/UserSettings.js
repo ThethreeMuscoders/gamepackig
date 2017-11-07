@@ -38,11 +38,7 @@ class UserSettings extends React.Component {
       name: e.target.value
     })
   }
-  handleNameChange(e) {
-    this.setState({
-      name: e.target.value
-    })
-  }
+
   render() {
     const { products, user, updatingUser } = this.props;
     console.log(user, 'user');

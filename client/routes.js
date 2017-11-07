@@ -18,6 +18,7 @@ import {
   UserSettings,
   UserOrders,
   UserAccount,
+  NewReview,
   CheckoutSuccess,
   ErrorForm,
 } from './components';
@@ -62,7 +63,7 @@ class Routes extends Component {
           
 
 
-          
+          <Route path='/newReview/:productId' component={NewReview} />
 
           <Route path='/products/:productId' component = {ProductSinglePage}/>
           <Route path="/cart" component={Cart} />
