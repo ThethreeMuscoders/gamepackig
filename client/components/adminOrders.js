@@ -91,7 +91,7 @@ export const AdminOrders = (props) => {
                   </th>
 
                   <th>
-                    {deliveryDate.slice(0, 10)}
+                    {deliveryDate && deliveryDate.slice(0, 10)}
                   </th>
                 </tr>
               ))

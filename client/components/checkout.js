@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { addHistoryItemToDatabase, deleteCart, resetCartInSession } from '../store';
 
 import '../css/_checkout.scss';
@@ -158,12 +159,12 @@ const mapDispatch = (dispatch, ownProps) => {
         .then(() => console.log('Sent'))
         .catch(console.error);
 
-      ownProps.push('/successful-order');
+      ownProps.history.push('/successful-order');
     },
   };
 };
 
-export default connect(mapState, mapDispatch)(Checkout);
+export default withRouter(connect(mapState, mapDispatch)(Checkout));
 
 /**
  * PROP TYPES
