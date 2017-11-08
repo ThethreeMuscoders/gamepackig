@@ -26,7 +26,7 @@ class UserSettings extends React.Component {
 
   // componentWillMount() {
   //   this.setState ({
-      
+
   //   });
   // }
 
@@ -41,7 +41,6 @@ class UserSettings extends React.Component {
 
   render() {
     const { products, user, updatingUser } = this.props;
-    console.log(user, 'user');
     return (
       <div className="user-settings-wrapper">
         <div className="settings-list">
@@ -147,6 +146,7 @@ const mapDispatch = (dispatch) => {
 
 
       dispatch(updateUserInDatabase(id, { name, email, shippingAddress, billingAddress }))
+        .then(() => alert('Update Successful'))
     },
   }
 }

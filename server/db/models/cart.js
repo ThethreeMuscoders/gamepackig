@@ -18,5 +18,5 @@ const newCart = Cart.build({
   price: 23.00,
   itemId: 2,
 });
-console.log(newCart)
+
 module.exports = Cart;

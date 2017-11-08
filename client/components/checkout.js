@@ -153,7 +153,6 @@ const mapDispatch = (dispatch, ownProps) => {
       };
 
       emailjs.send(serviceId, templateId, emailParams)
-        .then(() => console.log('Sent'))
         .catch(console.error);
 
       ownProps.push('/successful-order');

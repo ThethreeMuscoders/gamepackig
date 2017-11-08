@@ -17,12 +17,9 @@ class OrderedProduct extends React.Component {
     this.props.getProduct(1);
   }
   render() {
-    //first need withRouter
 
     const { user, cart, product, addItem, getProduct, productId } = this.props;
-    // const { id, name, image, description, price } = product;
-    console.log(this.props, 'props');
-    console.log(this.state, 'the state');
+
     return (
       <div className='product-item'>
         <div className='TopSection'>

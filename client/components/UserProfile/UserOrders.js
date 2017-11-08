@@ -20,30 +20,24 @@ class UserOrders extends React.Component {
   }
 
   render() {
-  const { products, fetchHistory, user, purchaseHistory } = this.props;
-  //console.log(this.state.user.purchaseHistory[0].expectedDate, 'user');
-  // map on users purchaseHistory
-  // find a way to load product along with purchase history, eager load the product with purchase history,
-  //iterate through purchaseHistory list, render that component with purchase history
-  //purchaseHistory.map(orderedItem => {
-   const histories = user.purchaseHistories || []; 
-  console.log('the history', histories);
-  return (
-    <div className="product-list-wrapper">
-      <div className="product-list">
-        {
-          histories.map(history => {
-            console.log(history, 'history');
-            return <OrderedProduct key={history.id} product={history} productId={history.id} deliveryDate={history.deliveryDate} price={history.price} />
-          })
-          // products.map(product =>
-          //   <OrderedProduct key={product.id} product={product} />)
-        }
-        
+    const { products, fetchHistory, user, purchaseHistory } = this.props;
+
+    const histories = user.purchaseHistories || [];
+    return (
+      <div className="product-list-wrapper">
+        <div className="product-list">
+          {
+            histories.map(history => {
+              return <OrderedProduct key={history.id} product={history} productId={history.id} deliveryDate={history.deliveryDate} price={history.price} />
+            })
+            // products.map(product =>
+            //   <OrderedProduct key={product.id} product={product} />)
+          }
+
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  };
 }
 
 /**
@@ -68,9 +62,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchHistory(id) {
-      console.log('userid', id)
-    const action = fetchSingleHistory(id);
-    dispatch(action)
+      const action = fetchSingleHistory(id);
+      dispatch(action)
     },
   };
 };

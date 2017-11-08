@@ -21,7 +21,7 @@ class NewReview extends React.Component {
 
   // componentWillMount() {
   //   this.setState ({
-      
+
   //   });
   // }
 
@@ -30,7 +30,6 @@ class NewReview extends React.Component {
   }
   render() {
     const { products, user, leaveReview } = this.props;
-    console.log(user, 'state');
     return (
       <div className="user-settings-wrapper">
         <div className="settings-list">
