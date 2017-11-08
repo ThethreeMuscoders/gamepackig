@@ -46,6 +46,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     addItem(user, { price, id }) {
+      
       let item = {
         price,
         quantity: 1,

@@ -55,7 +55,6 @@ class Routes extends Component {
           <Route path="/checkout" component={Checkout} />
           <Route path="/admin" component={AdminDashboard} />
           <Route path="/successful-order" component={CheckoutSuccess} />
-          <Route path="/" component={Error} />
           <Route path="/" component={ErrorForm} />
           </Main>
       </Router>

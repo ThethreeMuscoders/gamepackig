@@ -36,7 +36,6 @@ router.post('/login', (req, res, next) => {
         res.status(401).send('Incorrect password')
       } else {
         if (user.carts.length < 0) {
-          console.log('in here')
           addQuantity(req.session.cart, user);
         }
         req.login(user, err => (err ? next(err) : res.json(user)))

@@ -52,11 +52,7 @@ export const logout = () =>
         dispatch(removeUser());
         history.push('/login');
       })
-<<<<<<< HEAD
-      .catch(err => console.log(err));
-=======
       .catch(err => dispatch(errorState(err)))
->>>>>>> master
 
 /**
  * REDUCER
