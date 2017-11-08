@@ -86,7 +86,7 @@ export const fetchAllCarts = () => (dispatch) => {
     .then((res) => {
       return dispatch(getAllCarts(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const fetchSingleCart = userId => (dispatch) => {
@@ -94,13 +94,13 @@ export const fetchSingleCart = userId => (dispatch) => {
     .then((res) => {
       return dispatch(getSingleCart(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const updateCart = (cartId, body) => (dispatch) => {
   return axios.put(`/api/carts/${cartId}`, body)
     .then(res => dispatch(updateCartInStore(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const addCartItemToDatabase = cartItem => (dispatch) => {
@@ -122,7 +122,7 @@ export const addCartItemToDatabase = cartItem => (dispatch) => {
 export const deleteCart = cartId => (dispatch) => {
   return axios.delete(`/api/carts/${cartId}`)
     .then(() => dispatch(deleteCartFromStore(cartId)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const fetchGuestCart = guestUser => (dispatch) => {

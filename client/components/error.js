@@ -5,13 +5,14 @@ import { errorState } from '../store';
 
 import '../css/_error.scss';
 
-function Error(props) {
+function ErrorForm(props) {
   const { error, clearError } = props;
+  const hasError = Object.keys(error).length > 0;
 
   return (
     <div>
       {
-        Object.keys(error).length &&
+        hasError &&
         (<div>
           <div className="error">
             <a onClick={clearError}><i class="fa fa-times" aria-hidden="true"></i></a>
@@ -41,4 +42,4 @@ const mapDispatch = (dispatch, ownProps) => {
     },
   };
 };
-export default connect(mapState, mapDispatch)(Error);
+export default connect(mapState, mapDispatch)(ErrorForm);

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { filterProductsInStore } from './';
+import { errorState } from './';
 
 // Actions
 const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
@@ -45,7 +46,7 @@ export const fetchAllProducts = () => (dispatch) => {
       dispatch(filterProductsInStore(res.data))
       return dispatch(getAllProducts(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const addProductToDatabase = product => (dispatch) => {
@@ -53,19 +54,19 @@ export const addProductToDatabase = product => (dispatch) => {
     .then((res) => {
       dispatch(addProductToStore(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const updateProduct = (productId, body) => (dispatch) => {
   return axios.put(`/api/products/${productId}`, body)
     .then(res => dispatch(fetchAllProducts()))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const deleteProduct = productId => (dispatch) => {
   return axios.delete(`/api/products/${productId}`)
     .then(res => dispatch(fetchAllProducts()))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const filterProducts = (filterFunc, state) => (dispatch) => {
@@ -76,5 +77,5 @@ export const filterProducts = (filterFunc, state) => (dispatch) => {
         const filteredProducts = res.filter(filterFunc);
         return dispatch(getAllProducts(filteredProducts));
       })
-      .catch(err => console.log(err));
+      .catch(err => dispatch(errorState(err)));
 };

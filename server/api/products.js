@@ -19,6 +19,7 @@ router.get('/:productId', (req, res, next) => {
       { model: Review, include: [
         { model: User },
       ]},
+      { model: Category },
     ],
   })
     .then(product => res.json(product))

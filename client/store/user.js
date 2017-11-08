@@ -1,6 +1,6 @@
-import axios from 'axios';
-import history from '../history';
-import { fetchSingleCart, fetchGuestCart } from './';
+import axios from 'axios'
+import history from '../history'
+import { fetchSingleCart, errorState, fetchGuestCart } from './';
 
 /**
  * ACTION TYPES
@@ -33,7 +33,7 @@ export const me = () =>
           dispatch(fetchSingleCart(res.data.id));
         }
       })
-      .catch(err => console.log(err));
+      .catch(err => dispatch(errorState(err)));
 
 export const auth = (email, password, method) =>
   dispatch =>
@@ -52,7 +52,11 @@ export const logout = () =>
         dispatch(removeUser());
         history.push('/login');
       })
+<<<<<<< HEAD
       .catch(err => console.log(err));
+=======
+      .catch(err => dispatch(errorState(err)))
+>>>>>>> master
 
 /**
  * REDUCER

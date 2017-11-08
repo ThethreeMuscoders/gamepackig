@@ -11,6 +11,7 @@ export const Navbar = (props) => {
   const {
     products,
     isLoggedIn,
+    isAdmin,
     handleClick,
     submitSearch,
     searchButton,
@@ -27,12 +28,22 @@ export const Navbar = (props) => {
         <nav>
           {
             isLoggedIn
-              ? <div>
-                {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
-                <a href="#" onClick={handleClick}>Logout</a>
-              </div>
-              : <div>
+              ? isAdmin
+                ?
+                <div>
+                  {/* The navbar will show these links after you log in if you're an admin */}
+                  <Link to="/home">Home</Link>
+                  <Link to="/admin">Admin Dashboard</Link>
+                  <a href="#" onClick={handleClick}>Logout</a>
+                </div>
+                :
+                <div>
+                  {/* The navbar will show these links after you log in if you're not an admin*/}
+                  <Link to="/home">Home</Link>
+                  <a href="#" onClick={handleClick}>Logout</a>
+                </div>
+              :
+              <div>
                 {/* The navbar will show these links before you log in */}
                 <Link to="/login">Login</Link>
                 <Link to="/signup">Sign Up</Link>
@@ -77,6 +88,7 @@ export const Navbar = (props) => {
 const mapState = (state) => {
   return {
     isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin,
     products: state.products,
     filteredProducts: state.filteredProducts,
   };

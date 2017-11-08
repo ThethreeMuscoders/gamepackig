@@ -9,10 +9,7 @@ const attributes = ['id', 'name', 'email', 'billingAddress', 'shippingAddress', 
 router.param('id', (req, res, next, id) => {
   User.findById(id, {
     attributes,
-    include: [
-      { model: Cart, as: 'product' },
-      { model: PurchaseHistory, as: 'purchases' },
-    ],
+    include: [Cart, PurchaseHistory],
   })
     .then((user) => {
       req.selectedUser = user;
@@ -28,6 +25,7 @@ router.get('/', (req, res, next) => {
     // users' passwords are encrypted, it won't help if we just
     // send everything to anyone who asks!
     attributes,
+    include: [PurchaseHistory],
   })
     .then(users => res.json(users))
     .catch(next);

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorState } from './';
 
 // Actions
 const GET_ALL_REVIEWS = 'GET_ALL_REVIEWS';
@@ -75,7 +76,7 @@ export const fetchAllReviews = () => (dispatch) => {
     .then((res) => {
       return dispatch(getAllReviews(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const fetchSingleReview = reviewId => (dispatch) => {
@@ -83,7 +84,7 @@ export const fetchSingleReview = reviewId => (dispatch) => {
     .then((res) => {
       return dispatch(getSingleReview(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const addReviewItemToDatabase = review => (dispatch) => {
@@ -91,17 +92,17 @@ export const addReviewItemToDatabase = review => (dispatch) => {
     .then((res) => {
       dispatch(addReviewToStore(res.data))
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const updateReview = (reviewId, body) => (dispatch) => {
   return axios.put(`/api/reviews/${reviewId}`, body)
     .then(res => dispatch(updateReview(res)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const deleteReview = reviewId => (dispatch) => {
   return axios.delete(`/api/reviews/${reviewId}`)
     .then(() => dispatch(deleteReviewFromStore(reviewId)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
