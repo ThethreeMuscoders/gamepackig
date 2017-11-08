@@ -73,7 +73,7 @@ export const fetchAllCarts = () => (dispatch) => {
     .then((res) => {
       return dispatch(getAllCarts(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const fetchSingleCart = userId => (dispatch) => {
@@ -81,21 +81,21 @@ export const fetchSingleCart = userId => (dispatch) => {
     .then((res) => {
       return dispatch(getSingleCart(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 
 export const updateCart = (cartId, body) => (dispatch) => {
   return axios.put(`/api/carts/${cartId}`, body)
     .then(res => dispatch(updateCartInStore(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const addCartItemToDatabase = cartItem => (dispatch) => {
 //Have the if statement  checking whether the user Id is a string or a number
 //if its a number, build a new cart, filter through each to see if they have the same
 //if they are, then add the new one's quantity to the old one, discard the new one.
-//if there's no match, push that item to the session and dispatch updateCartInStore with 
+//if there's no match, push that item to the session and dispatch updateCartInStore with
 //the cart array in sessions. NOTE This is going to have to be done in the router in order to have access to the req.session.
   return axios.get(`/api/carts/${cartItem.userId}/${cartItem.productId}`) // this is where the magic happens <<<
     .then((res) => {
@@ -114,5 +114,5 @@ export const addCartItemToDatabase = cartItem => (dispatch) => {
 export const deleteCart = cartId => (dispatch) => {
   return axios.delete(`/api/carts/${cartId}`)
     .then(() => dispatch(deleteCartFromStore(cartId)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };

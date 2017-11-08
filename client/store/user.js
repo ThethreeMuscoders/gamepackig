@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import { fetchSingleCart } from './';
+import { fetchSingleCart, errorState } from './';
 
 /**
  * ACTION TYPES
@@ -29,7 +29,7 @@ export const me = () =>
         dispatch(getUser(res.data || defaultUser));
         dispatch(fetchSingleCart(res.data.id));
       })
-      .catch(err => console.log(err));
+      .catch(err => dispatch(errorState(err)));
 
 export const auth = (email, password, method) =>
   dispatch =>
@@ -48,7 +48,7 @@ export const logout = () =>
         dispatch(removeUser())
         history.push('/login')
       })
-      .catch(err => console.log(err))
+      .catch(err => dispatch(errorState(err)))
 
 /**
  * REDUCER

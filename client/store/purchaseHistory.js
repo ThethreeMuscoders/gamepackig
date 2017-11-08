@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorState } from './';
 
 // Actions
 const GET_ALL_USER_HISTORIES = 'GET_ALL_USER_HISTORIES';
@@ -44,20 +45,20 @@ export const fetchAllHistories = () => (dispatch) => {
     .then((res) => {
       return dispatch(getAllHistories(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const fetchSingleHistory = userId => (dispatch) => {
   return axios.get(`/api/history/${userId}`)
     .then(res => dispatch(getSingleHistory(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 
 export const updateHistory = (historyId, body) => (dispatch) => {
   return axios.put(`/api/history/${historyId}`, body)
     .then(res => dispatch(updateHistoryInStore(res.data)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const addHistoryItemToDatabase = historyItem => (dispatch) => {
@@ -65,11 +66,11 @@ export const addHistoryItemToDatabase = historyItem => (dispatch) => {
     .then((res) => {
       dispatch(addHistoryToStore(res.data));
     })
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
 
 export const deleteHistory = historyId => (dispatch) => {
   return axios.delete(`/api/history/${historyId}`)
     .then(() => dispatch(deleteHistoryFromStore(historyId)))
-    .catch(err => console.log(err));
+    .catch(err => dispatch(errorState(err)));
 };
