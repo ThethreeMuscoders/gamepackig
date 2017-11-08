@@ -17,5 +17,6 @@ const Cart = db.define('cart', {
 Cart.prototype.addQuantity = (quantity) => {
   const newQuantity = this.getDataValue('quantity') + quantity;
   return this.setDataValue('quantity', newQuantity);
-}
+};
+
 module.exports = Cart;

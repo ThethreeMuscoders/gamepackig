@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addHistoryItemToDatabase, deleteCart } from '../store';
+import { addHistoryItemToDatabase, deleteCart, resetCartInSession } from '../store';
 
 import '../css/_checkout.scss';
 
@@ -48,7 +48,7 @@ export const Checkout = (props) => {
           <h3>Checkout Details</h3>
         </div>
         <form onSubmit={(e) => {
-          submitCheckout(e, cart);
+          submitCheckout(e, cart, user);
           sendEmail(user, subtotal, tax, shipping, total);
         }}>
 
@@ -112,7 +112,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch, ownProps) => {
   return {
-    submitCheckout(e, cart) {
+    submitCheckout(e, cart, user) {
       e.preventDefault();
       // e.target['bill-name'] to access form
       const shippingTime = 7;
@@ -135,7 +135,9 @@ const mapDispatch = (dispatch, ownProps) => {
         };
         const action = addHistoryItemToDatabase(historyItem);
         dispatch(action);
-        const action2 = deleteCart(item.id);
+        const action2 = user.isGuest
+          ? resetCartInSession()
+          : deleteCart(item.id);
         dispatch(action2);
       });
     },

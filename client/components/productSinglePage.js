@@ -108,7 +108,8 @@ const mapDispatch = (dispatch, ownProps) => {
         productId: id,
         userId: user.id,
       };
-      //NOTE this should have an option for guests
+      // NOTE Functionality for Unauthenticated users is left out in order to show off the
+      // error message
       const action = addCartItemToDatabase(item);
       dispatch(action);
       ownProps.history.push("/cart/");

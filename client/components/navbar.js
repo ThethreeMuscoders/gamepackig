@@ -87,8 +87,6 @@ const mapDispatch = (dispatch, ownProps) => {
     handleClick() {
       dispatch(logout())
         .then(() => dispatch(me()));
-      // dispatch(me());
-      // NOTE Get user (GuestUser, which will also get the cart?) Dispatch Clear store? get me?
     },
     submitSearch(e, products, filterProducts, searchButton) {
       if (e.key === "Enter") {

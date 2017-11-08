@@ -6,24 +6,11 @@ module.exports = router;
 
 
 function axiosFetchProduct(cartItem) {
-  Product.findById(cartItem.productId)
-    .then(res => res.data)
-    .then((productInfo) => {
-      cartItem.product = productInfo;
-      return cartItem;
-    })
+  return Product.findById(cartItem.productId)
+    
     .catch(err => console.log(err))
 }
 
-// get a all carts from the session, though I don't think I'll be needing this one.
-router.get('/', (req, res, next) => {
-
-});
-
-// I could probaby just use the api from products here......
-router.get('/productId', (req, res, next) => {
-
-});
 
 router.post('/', ({ session, body }, res, next) => {
   const newItem = Object.assign({}, body);
@@ -44,17 +31,30 @@ router.post('/', ({ session, body }, res, next) => {
     if (!didSplice) {
       session.cart.push(newItem);
     }
-    session.cart.map(item => axiosFetchProduct(item))
-    res.json(session.cart);
+    const allProductPromises = session.cart.map(item => axiosFetchProduct(item));
+    Promise.all(allProductPromises)
+      .then((updatedProducts) => {
+        session.cart.forEach((el, i) => {
+          el = updatedProducts[i];
+        });
+        res.json(session.cart);
+      });
   }
 });
 
-// update cart from the session
-router.put('/', (req, res, next) => {
+router.delete('/:itemId', (req, res, next) => {
+  const itemId = parseInt(req.params.itemId, 10);
+  const sessionCart = req.session.cart;
 
+  for (let i = 0; i < sessionCart.length; i++) {
+    if (sessionCart[i].productId === itemId) {
+      sessionCart.splice(i, 1);
+    }
+  }
+  res.json(req.session.cart);
 });
 
-// remove cart from the session
-router.delete('/', (req, res, next) => {
-  console.log(req.session)
-});
+router.post('/removeCart', (req, res, next) => {
+  req.session.cart = [];
+  res.json(req.session.cart);
+})

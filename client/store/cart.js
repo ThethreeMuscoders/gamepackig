@@ -7,7 +7,6 @@ function axiosFetchProduct(cartItem) {
     .then(res => res.data)
     .then((productInfo) => {
       cartItem.product = productInfo;
-      // console.log("got product info", cartItem)
     })
     .catch(err => console.log(err))
   return cartItem;
@@ -81,6 +80,7 @@ export default function (state = [], action) {
 }
 
 // Thunks
+
 export const fetchAllCarts = () => (dispatch) => {
   return axios.get('/api/carts/')
     .then((res) => {
@@ -104,6 +104,7 @@ export const updateCart = (cartId, body) => (dispatch) => {
 };
 
 export const addCartItemToDatabase = cartItem => (dispatch) => {
+
   return axios.get(`/api/carts/${cartItem.userId}/${cartItem.productId}`)
     .then((res) => {
       if (res.data) {
@@ -124,33 +125,36 @@ export const deleteCart = cartId => (dispatch) => {
     .catch(err => console.log(err));
 };
 
-
-// GuestUser Cart Thunks......
-
-// The Session cart object was created before this, all this does is gets the product info of each item.
-// and sets that to the store 
 export const fetchGuestCart = guestUser => (dispatch) => {
   const cartWithProducts = guestUser.cart.map(item => axiosFetchProduct(item))
-  console.log('fetchGuestCart', cartWithProducts);
   dispatch(getSingleCart(cartWithProducts));
 };
 
-// This thunl persists the new cartItem to the session ..
+
 export const addCartItemToGuestSession = cartItem => (dispatch) => {
-  axios.post('/api/guestCart', cartItem) // This route has the logic to filter repeated cartItems and combines their quantity
+  axios.post('/api/guestCart', cartItem)
     .then(res => res.data)
     .then((cart) => {
-      const cartWithProducts = cart.map(item => axiosFetchProduct(item)); // This fetches the productInfo for every cart item in the session.
-      // console.log("addCartItemToGuestSession", cart);
-      dispatch(getSingleCart(cartWithProducts));// Sets It to the store.
+      const cartWithProducts = cart.map(item => axiosFetchProduct(item));
+      dispatch(getSingleCart(cartWithProducts));
     })
     .catch(err => console.log(err));
 };
 
 // Delete Guest Cart
-// export const deleteCartFromGuestSession = cartItem => (dispatch) => {
-//   axios.delete('/api/guestCart')
-//   .then((res) => res.data)
-//   .then(cart => console.log('Here', cart))
-//   .catch(err => console.log)
-// };
+export const deleteCartFromGuestSession = itemId => (dispatch) => {
+  axios.delete(`/api/guestCart/${itemId}`)
+    .then(res => res.data)
+    .then((cart) => {
+      const cartWithProducts = cart.map(item => axiosFetchProduct(item));
+      dispatch(getSingleCart(cartWithProducts));
+    })
+    .catch(err => console.log(err))
+};
+
+export const resetCartInSession = () => (dispatch) => {
+  axios.post('/api/guestCart/removeCart')
+    .then(res => res.data)
+    .then(cart => dispatch(getSingleCart(cart)))
+    .catch(err => console.log(err));
+};

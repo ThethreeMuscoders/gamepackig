@@ -17,13 +17,13 @@ import {
   CheckoutSuccess,
   Error,
 } from './components';
-import { me, fetchAllProducts, fetchAllCategories } from './store';
+import { me, fetchAllProducts, fetchAllCategories, fetchCart } from './store';
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount () {
+  componentDidMount() {
     this.props.loadInitialData();
   }
 
@@ -53,7 +53,7 @@ class Routes extends Component {
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/successful-order" component={CheckoutSuccess} />
-          <Route path="/" component={Error} />
+          <Route  path="/" component={Error} />
           </Main>
       </Router>
     )
@@ -73,8 +73,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    loadInitialData(userId) {
-      dispatch(me());
+    loadInitialData() {
+      dispatch(me())
       dispatch(fetchAllProducts());
       dispatch(fetchAllCategories());
     },
