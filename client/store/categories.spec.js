@@ -20,7 +20,7 @@ describe('Categories Thunk Creators', () => {
     { id: 4, category: 'Accessory' },
   ];
   const fakeCategory = { id: 5, category: 'candy' };
-  
+
   beforeEach(() => {
     mockAxios = new MockAdapter(axios);
     store = mockStore(initialState);
@@ -35,13 +35,11 @@ describe('Categories Thunk Creators', () => {
     mockAxios.onGet('/api/category/').reply(200, fakeCategories);
     return store.dispatch(fetchAllCategories()).then(() => {
       const actions = store.getActions();
-      // const state = store.getState();
-      // console.log(state)
       expect(actions[0].type).to.equal('GET_ALL_CATEGORIES');
       expect(actions[0].categories).to.deep.equal(fakeCategories);
     });
   });
-  
+
   it('Thunk postCategoryToDb should post category to the db', () => {
     mockAxios.onPost('/api/category/', fakeCategory).reply(200, fakeCategory);
     return store.dispatch(postCategoryToDb(fakeCategory)).then(() => {

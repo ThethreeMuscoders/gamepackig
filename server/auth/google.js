@@ -34,8 +34,7 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     const googleId = profile.id
     const name = profile.displayName
     const email = profile.emails[0].value
-    console.log('hit this')
-    
+
     User.find({where: {googleId}})
       .then(foundUser => (foundUser
         ? done(null, foundUser)

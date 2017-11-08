@@ -21,7 +21,7 @@ export const Navbar = (props) => {
     <div>
       <div className="nav">
         <div className="logo">
-          <img src="assets/gamepad.svg" alt="game controller icon" />
+          <img src="/assets/gamepad.svg" alt="game controller icon" />
           <h1>gamepackig</h1>
         </div>
         <nav>
@@ -29,7 +29,8 @@ export const Navbar = (props) => {
             isLoggedIn
               ? <div>
                 {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
+                
+                <Link to="/account">Account</Link>
                 <a href="#" onClick={handleClick}>Logout</a>
               </div>
               : <div>

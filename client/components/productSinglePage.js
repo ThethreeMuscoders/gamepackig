@@ -48,7 +48,7 @@ export class ProductSinglePage extends React.Component {
     const { isAdmin } = user;
     return (
       <div className='product-single-page-wrapper'>
-        <h1>This is the Product Single Page for {product.name} </h1>
+        <h1>{product.name}</h1>
         <hr />
         <div className='product-description-container'>
           <div id='product-form'>

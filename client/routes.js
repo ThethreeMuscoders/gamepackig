@@ -8,14 +8,19 @@ import {
   Main,
   Login,
   Signup,
-  UserHome,
+  HomePage,
   ProductList,
   FilterSidebar,
+  UserSidebar,
   Cart,
   ProductSinglePage,
   Checkout,
+  UserSettings,
+  UserOrders,
+  UserAccount,
+  NewReview,
   CheckoutSuccess,
-  Error,
+  ErrorForm,
 } from './components';
 import { me, fetchAllProducts, fetchAllCategories } from './store';
 
@@ -41,19 +46,30 @@ class Routes extends Component {
               isLoggedIn &&
               <Switch>
                   {/* Routes placed here are only available after logging in */}
-                  <Route path="/home" component={UserHome} />
+                  <Route path="/home" component={HomePage} />
+                  
                 </Switch>
             }
             {/* Displays our Login component as a fallback */}
             <Route path="/login" component={Login} />
           </Switch>
+          <Route path="/account" component={UserSidebar} />
+          <Route exact path="/account" component={UserAccount} />
+          <Route exact path="/account/settings" component={UserSettings} />
+          <Route exact path="/account/orders" component={UserOrders} />
+
           <Route exact path="/products" component={FilterSidebar} />
           <Route exact path="/products" component={ProductList} />
+          
+
+
+          <Route path='/newReview/:productId' component={NewReview} />
+
           <Route path='/products/:productId' component = {ProductSinglePage}/>
           <Route path="/cart" component={Cart} />
           <Route path="/checkout" component={Checkout} />
           <Route path="/successful-order" component={CheckoutSuccess} />
-          <Route path="/" component={Error} />
+          <Route path="/" component={ErrorForm} />
           </Main>
       </Router>
     )

@@ -1,3 +1,5 @@
+const { User } = require('../db/models') 
+
 module.exports = {
   isAdmin: (req, res, next) => {
     if (req.user && req.user.isAdmin) return next();
@@ -5,5 +7,15 @@ module.exports = {
     const err = new Error("User is Not Autorized");
     err.satus = 401;
     next(err);
+  },
+
+  isUser: (req, res, next) => {
+    User.findById(req.user.id)
+      .then(() => {
+        next();
+      })
+      .catch((err) => {
+        next(err);
+      });
   },
 };

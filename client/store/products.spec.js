@@ -57,9 +57,6 @@ describe('Product Thunk Creators', () => {
       category: 2,
     });
     return store.dispatch(updateProduct(1, fakeUpdate))
-      .then(() => {
-        console.log('here')
-      });
   });
 
   it('Thunk addPriduct should delete a product from database', () => {

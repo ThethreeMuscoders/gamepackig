@@ -1,16 +1,25 @@
 const router = require('express').Router();
-const { Review } = require('../db/models');
+const { Review, Product, User } = require('../db/models');
 module.exports = router;
+
+const attributes = ['review', 'stars'];
 
 
 router.param('reviewId', (req, res, next, reviewId) => {
-  Review.findById(reviewId)
+  Review.findById(reviewId, {
+  attributes,
+  include: [
+    User,
+    Product,
+  ],
+  })
     .then((review) => {
       req.selectedReview = review;
       next(); // Next is called here to move on to the appropriate route.
     })
     .catch(next);
 });
+
 
 router.get('/', (req, res, next) => {
   Review.findAll()

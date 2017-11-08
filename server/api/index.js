@@ -3,7 +3,7 @@ const { isAdmin } = require('../middleware/auth')
 module.exports = router
 
 router.use('/carts', require('./cart'));
-router.use('/users', isAdmin, require('./users'));
+router.use('/users', require('./users'));
 router.use('/products', require('./products'));
 router.use('/reviews', require('./review'));
 router.use('/history', require('./purchaseHistory'));
