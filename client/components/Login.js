@@ -1,13 +1,13 @@
 import React from 'react'
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import {auth} from '../store'
+import { auth, fetchSingleCart } from '../store'
 
 /**
  * COMPONENT
  */
 const AuthForm = (props) => {
-  const {name, displayName, handleSubmit, error} = props
+  const { name, displayName, handleSubmit, error } = props
 
   return (
     <div>
@@ -34,21 +34,22 @@ const mapLogin = (state) => {
   return {
     name: 'login',
     displayName: 'Login',
-    error: state.user.error
+    error: state.user.error,
+    user: state.user,
   }
 }
 
 const mapDispatch = (dispatch) => {
   return {
-    handleSubmit (evt) {
+    handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
       const email = evt.target.email.value
       const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
-    }
-  }
-}
+      dispatch(auth(email, password, formName));
+    },
+  };
+};
 
 
 export const Login = connect(mapLogin, mapDispatch)(AuthForm)
@@ -57,5 +58,5 @@ AuthForm.propTypes = {
   name: PropTypes.string.isRequired,
   displayName: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  error: PropTypes.object
+  error: PropTypes.object,
 }

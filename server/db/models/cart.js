@@ -12,11 +12,11 @@ const Cart = db.define('cart', {
   },
 });
 
-const newCart = Cart.build({
-  id: "supersecretsessionid",
-  quantity: 30,
-  price: 23.00,
-  itemId: 2,
-});
-console.log(newCart)
+
+// This method will be used to merge the session cart and the official cart.
+Cart.prototype.addQuantity = (quantity) => {
+  const newQuantity = this.getDataValue('quantity') + quantity;
+  return this.setDataValue('quantity', newQuantity);
+};
+
 module.exports = Cart;

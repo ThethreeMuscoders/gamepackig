@@ -1,5 +1,17 @@
 import axios from 'axios';
 import { errorState } from './';
+
+// Fetches product information for the session cartItem
+function axiosFetchProduct(cartItem) {
+  axios.get(`/api/products/${cartItem.productId}`)
+    .then(res => res.data)
+    .then((productInfo) => {
+      cartItem.product = productInfo;
+    })
+    .catch(err => console.log(err))
+  return cartItem;
+};
+
 // Actions
 const GET_ALL_CARTS = 'GET_ALL_CARTS';
 const GET_SINGLE_CART = 'GET_SINGLE_CART';
@@ -68,6 +80,7 @@ export default function (state = [], action) {
 }
 
 // Thunks
+
 export const fetchAllCarts = () => (dispatch) => {
   return axios.get('/api/carts/')
     .then((res) => {
@@ -84,7 +97,6 @@ export const fetchSingleCart = userId => (dispatch) => {
     .catch(err => dispatch(errorState(err)));
 };
 
-
 export const updateCart = (cartId, body) => (dispatch) => {
   return axios.put(`/api/carts/${cartId}`, body)
     .then(res => dispatch(updateCartInStore(res.data)))
@@ -92,12 +104,8 @@ export const updateCart = (cartId, body) => (dispatch) => {
 };
 
 export const addCartItemToDatabase = cartItem => (dispatch) => {
-//Have the if statement  checking whether the user Id is a string or a number
-//if its a number, build a new cart, filter through each to see if they have the same
-//if they are, then add the new one's quantity to the old one, discard the new one.
-//if there's no match, push that item to the session and dispatch updateCartInStore with
-//the cart array in sessions. NOTE This is going to have to be done in the router in order to have access to the req.session.
-  return axios.get(`/api/carts/${cartItem.userId}/${cartItem.productId}`) // this is where the magic happens <<<
+
+  return axios.get(`/api/carts/${cartItem.userId}/${cartItem.productId}`)
     .then((res) => {
       if (res.data) {
         res.data.quantity += cartItem.quantity;
@@ -115,4 +123,38 @@ export const deleteCart = cartId => (dispatch) => {
   return axios.delete(`/api/carts/${cartId}`)
     .then(() => dispatch(deleteCartFromStore(cartId)))
     .catch(err => dispatch(errorState(err)));
+};
+
+export const fetchGuestCart = guestUser => (dispatch) => {
+  const cartWithProducts = guestUser.cart.map(item => axiosFetchProduct(item))
+  dispatch(getSingleCart(cartWithProducts));
+};
+
+
+export const addCartItemToGuestSession = cartItem => (dispatch) => {
+  axios.post('/api/guestCart', cartItem)
+    .then(res => res.data)
+    .then((cart) => {
+      const cartWithProducts = cart.map(item => axiosFetchProduct(item));
+      dispatch(getSingleCart(cartWithProducts));
+    })
+    .catch(err => console.log(err));
+};
+
+// Delete Guest Cart
+export const deleteCartFromGuestSession = itemId => (dispatch) => {
+  axios.delete(`/api/guestCart/${itemId}`)
+    .then(res => res.data)
+    .then((cart) => {
+      const cartWithProducts = cart.map(item => axiosFetchProduct(item));
+      dispatch(getSingleCart(cartWithProducts));
+    })
+    .catch(err => console.log(err))
+};
+
+export const resetCartInSession = () => (dispatch) => {
+  axios.post('/api/guestCart/removeCart')
+    .then(res => res.data)
+    .then(cart => dispatch(getSingleCart(cart)))
+    .catch(err => console.log(err));
 };
